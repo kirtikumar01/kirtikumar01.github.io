@@ -9,6 +9,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kirtikumar01.github.io"),
   title: "Kirti Kumar Piplaj | Senior Frontend Developer",
   description:
     "Portfolio of Kirti Kumar Piplaj, a Senior Frontend Developer with 3+ years of experience specialized in ReactJS, NextJS, VueJS, and building premium web applications.",
