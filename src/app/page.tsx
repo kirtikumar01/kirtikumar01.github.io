@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import styles from "./page.module.css";
@@ -70,28 +70,77 @@ export default function Home() {
   // Close mobile menu when navigating
   const handleNavClick = () => setMobileMenuOpen(false);
 
+  // Anti-spam: track last submission timestamp
+  const lastSubmitRef = useRef<number>(0);
+  const RATE_LIMIT_MS = 60_000; // 1 submission per minute
+
+  // Name field: block digits and special characters on keydown
+  const handleNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow: backspace, delete, tab, arrows, home, end, ctrl combos
+    if (["Backspace","Delete","Tab","ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
+    // Block digits
+    if (/[0-9]/.test(e.key)) { e.preventDefault(); return; }
+    // Block most special chars (allow space, hyphen, apostrophe for names like O'Brien, Mary-Jane)
+    if (!/^[a-zA-Z\u00C0-\u024F\s'-]$/.test(e.key)) { e.preventDefault(); return; }
+  };
+
+  // Also sanitize on paste for name field
+  const handleNamePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/[^a-zA-Z\u00C0-\u024F\s'-]/g, "");
+    const input = e.currentTarget;
+    const newValue = input.value.slice(0, input.selectionStart ?? 0) + pasted + input.value.slice(input.selectionEnd ?? 0);
+    setFormData(prev => ({ ...prev, name: newValue }));
+    if (formTouched.name) setFormErrors(prev => ({ ...prev, name: validateField("name", newValue) }));
+  };
+
   // Form validation
   const validateField = (name: string, value: string): string => {
     if (name === "name") {
-      if (!value.trim()) return "Name is required.";
-      if (value.trim().length < 2) return "Name must be at least 2 characters.";
+      const trimmed = value.trim();
+      if (!trimmed) return "Name is required.";
+      if (/^\s+$/.test(value)) return "Name cannot be spaces only.";
+      if (trimmed.length < 2) return "Name must be at least 2 characters.";
+      if (trimmed.length > 60) return "Name is too long (max 60 characters).";
+      if (/[0-9]/.test(trimmed)) return "Name cannot contain numbers.";
+      if (/[^a-zA-Z\u00C0-\u024F\s'-]/.test(trimmed)) return "Name contains invalid characters.";
     }
     if (name === "email") {
-      if (!value.trim()) return "Email is required.";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Please enter a valid email.";
+      const trimmed = value.trim();
+      if (!trimmed) return "Email is required.";
+      // RFC-compliant email regex
+      if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(trimmed))
+        return "Please enter a valid email address.";
+      if (trimmed.length > 254) return "Email address is too long.";
+      // Block obvious disposable domains
+      const disposable = ["mailinator.com","tempmail.com","throwaway.email","guerrillamail.com","yopmail.com","trashmail.com","sharklasers.com"];
+      const domain = trimmed.split("@")[1]?.toLowerCase();
+      if (domain && disposable.includes(domain)) return "Disposable email addresses are not allowed.";
     }
     if (name === "message") {
-      if (!value.trim()) return "Message is required.";
-      if (value.trim().length < 10) return "Message must be at least 10 characters.";
+      const trimmed = value.trim();
+      if (!trimmed) return "Message is required.";
+      if (/^\s+$/.test(value)) return "Message cannot be spaces only.";
+      if (trimmed.length < 10) return "Message must be at least 10 characters.";
+      if (trimmed.length > 2000) return "Message is too long (max 2000 characters).";
+      // Spam signals: too many URLs
+      const urlCount = (trimmed.match(/https?:\/\//g) || []).length;
+      if (urlCount > 2) return "Message contains too many links.";
+      // Block HTML/script tags
+      if (/<[^>]+>/.test(trimmed)) return "HTML is not allowed in the message.";
     }
     return "";
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    // Enforce max length silently
+    const maxLen = name === "name" ? 60 : name === "email" ? 254 : 2000;
+    const clamped = value.slice(0, maxLen);
+    setFormData(prev => ({ ...prev, [name]: clamped }));
     if (formTouched[name as keyof typeof formTouched]) {
-      setFormErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+      setFormErrors(prev => ({ ...prev, [name]: validateField(name, clamped) }));
     }
   };
 
@@ -102,13 +151,13 @@ export default function Home() {
   };
 
   const isFormValid =
-    formData.name.trim().length >= 2 &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
-    formData.message.trim().length >= 10;
+    !validateField("name", formData.name) &&
+    !validateField("email", formData.email) &&
+    !validateField("message", formData.message);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Touch all fields to show all errors
+    // Touch all to surface errors
     setFormTouched({ name: true, email: true, message: true });
     const errors = {
       name: validateField("name", formData.name),
@@ -118,26 +167,38 @@ export default function Home() {
     setFormErrors(errors);
     if (errors.name || errors.email || errors.message) return;
 
+    // Rate limit: 1 submission per minute
+    const now = Date.now();
+    if (now - lastSubmitRef.current < RATE_LIMIT_MS) {
+      const remaining = Math.ceil((RATE_LIMIT_MS - (now - lastSubmitRef.current)) / 1000);
+      setFormErrors(prev => ({ ...prev, message: `Please wait ${remaining}s before sending another message.` }));
+      return;
+    }
+
     setFormStatus("sending");
+    lastSubmitRef.current = now;
     try {
-      // Replace YOUR_FORMSPREE_ID with your actual Formspree form ID
-      // Sign up free at https://formspree.io → create a form → copy the ID
       const res = await fetch("https://formspree.io/f/mkjgbovd", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: formData.name, email: formData.email, message: formData.message }),
+        body: JSON.stringify({ name: formData.name.trim(), email: formData.email.trim(), message: formData.message.trim() }),
       });
       if (res.ok) {
         setFormStatus("success");
         setFormData({ name: "", email: "", message: "" });
         setFormTouched({ name: false, email: false, message: false });
+        setFormErrors({ name: "", email: "", message: "" });
+        setTimeout(() => setFormStatus("idle"), 5000);
       } else {
         setFormStatus("error");
+        setTimeout(() => setFormStatus("idle"), 5000);
       }
     } catch {
       setFormStatus("error");
+      setTimeout(() => setFormStatus("idle"), 5000);
     }
   };
+
 
 
 
@@ -750,34 +811,42 @@ export default function Home() {
             </p>
 
             {/* Success Banner */}
-            {formStatus === "success" && (
-              <motion.div
-                className={styles.formSuccess}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <span className={styles.formSuccessIcon}>✓</span>
-                <div>
-                  <strong>Message sent successfully!</strong>
-                  <p>Thanks for reaching out. I&apos;ll get back to you as soon as possible.</p>
-                </div>
-              </motion.div>
-            )}
+            <AnimatePresence>
+              {formStatus === "success" && (
+                <motion.div
+                  className={styles.formSuccess}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <span className={styles.formSuccessIcon}>✓</span>
+                  <div>
+                    <strong>Message sent successfully!</strong>
+                    <p>Thanks for reaching out. I&apos;ll get back to you as soon as possible.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Error Banner */}
-            {formStatus === "error" && (
-              <motion.div
-                className={styles.formError}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <span>⚠</span>
-                <div>
-                  <strong>Something went wrong.</strong>
-                  <p>Please try again or email me directly at kpiplaj0108@gmail.com</p>
-                </div>
-              </motion.div>
-            )}
+            <AnimatePresence>
+              {formStatus === "error" && (
+                <motion.div
+                  className={styles.formError}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <span>⚠</span>
+                  <div>
+                    <strong>Something went wrong.</strong>
+                    <p>Please try again or email me directly at kpiplaj0108@gmail.com</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <form className={styles.contactForm} onSubmit={handleFormSubmit} noValidate>
               <div className={styles.formGroup}>
@@ -789,6 +858,8 @@ export default function Home() {
                     value={formData.name}
                     onChange={handleFormChange}
                     onBlur={handleFormBlur}
+                    onKeyDown={handleNameKeyDown}
+                    onPaste={handleNamePaste}
                     className={`${styles.inputField} ${formErrors.name ? styles.inputError : formTouched.name && !formErrors.name ? styles.inputValid : ""}`}
                     disabled={formStatus === "sending" || formStatus === "success"}
                     autoComplete="name"
