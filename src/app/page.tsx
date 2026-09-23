@@ -928,7 +928,7 @@ export default function Home() {
           <p>Designed & Built by Kirti Kumar Piplaj</p>
           <div className={styles.socialLinks} style={{ marginTop: "1rem", justifyContent: "center" }}>
             <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaLinkedin size={20} /></a>
-            <a href="https://github.com/" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaGithub size={20} /></a>
+            <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaGithub size={20} /></a>
           </div>
         </div>
       </footer>
