@@ -1,26 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot } from "lucide-react";
+import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import styles from "./page.module.css";
 import { useState, useEffect, useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import { TypeAnimation } from 'react-type-animation';
 import TiltCard from "../components/TiltCard";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const yImages = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  
+  const experienceRef = useRef(null);
+  const { scrollYProgress: expScrollYProgress } = useScroll({ target: experienceRef, offset: ["start center", "end center"] });
+  const bubbleY = useTransform(expScrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "about", "experience", "projects", "contact"];
       const scrollY = window.scrollY;
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -45,6 +51,10 @@ export default function Home() {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  // Close mobile menu when navigating
+  const handleNavClick = () => setMobileMenuOpen(false);
+
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -71,15 +81,16 @@ export default function Home() {
     }
   };
 
+
   return (
     <>
       {/* Custom Cursor */}
-      <motion.div 
+      <motion.div
         className={styles.customCursor}
         animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16 }}
         transition={{ type: "spring", damping: 30, mass: 0.5, stiffness: 400 }}
       />
-      <motion.div 
+      <motion.div
         className={styles.customCursorOuter}
         animate={{ x: mousePosition.x - 24, y: mousePosition.y - 24 }}
         transition={{ type: "spring", damping: 40, mass: 1.5, stiffness: 200 }}
@@ -89,36 +100,88 @@ export default function Home() {
       <nav className={styles.navbar}>
         <div className={styles.navContainer}>
           <a href="#home" className={styles.logo}>Kirti<span className="gradient-text">.</span></a>
+          {/* Desktop nav */}
           <div className={styles.navLinks}>
             {["home", "about", "experience", "projects", "contact"].map((item) => (
-              <a 
-                key={item} 
-                href={`#${item}`} 
+              <a
+                key={item}
+                href={`#${item}`}
                 className={`${styles.navLink} ${activeSection === item ? styles.activeNavLink : ""}`}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
             ))}
           </div>
+          {/* Hamburger button - mobile only */}
+          <button
+            className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerOpen : ""}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+
+        {/* Mobile Drawer */}
+        <motion.div
+          className={styles.mobileDrawer}
+          initial={false}
+          animate={mobileMenuOpen ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0 }}
+          transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        >
+          {mobileMenuOpen && <div className={styles.mobileDrawerOverlay} onClick={handleNavClick} />}
+          <div className={styles.mobileDrawerContent}>
+            {["home", "about", "experience", "projects", "contact"].map((item, i) => (
+              <motion.a
+                key={item}
+                href={`#${item}`}
+                className={`${styles.mobileNavLink} ${activeSection === item ? styles.mobileNavLinkActive : ""}`}
+                onClick={handleNavClick}
+                initial={{ opacity: 0, x: 30 }}
+                animate={mobileMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+                transition={{ delay: mobileMenuOpen ? i * 0.08 : 0, duration: 0.3 }}
+              >
+                <span className={styles.mobileNavNumber}>0{i + 1}.</span>
+                {item.charAt(0).toUpperCase() + item.slice(1)}
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
       </nav>
 
       <div ref={containerRef} className={`container ${styles.pageWrapper}`}>
-        
+
         {/* Hero Section */}
         <section id="home" className={`${styles.section} ${styles.hero}`}>
           <motion.div className={styles.heroContent} initial="hidden" animate="visible" variants={fadeIn}>
             <motion.div className={styles.heroBadge} style={{ y: yImages }}>
               <span className={styles.pulseDot}></span> Available for new opportunities
             </motion.div>
-            <motion.h1 className={styles.heroTitle} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }}>
-              Crafting Digital Experiences as a <br />
-              <span className="gradient-text">Frontend Developer</span>
-            </motion.h1>
-            <h2 className={styles.heroSubtitle}>Hi, I&apos;m Kirti Kumar Piplaj</h2>
-            <p className={styles.heroDescription}>
+            <h1 className={styles.heroTitle}>
+              Crafting Digital Experiences as a
+              <br />
+              <TypeAnimation
+                sequence={[
+                  'Frontend Developer',
+                  2000,
+                  '',
+                  500,
+                ]}
+                wrapper="span"
+                cursor={true}
+                repeat={Infinity}
+                className="gradient-text"
+                style={{ whiteSpace: 'nowrap', display: 'inline-block' }}
+              />
+            </h1>
+            <h2 className={styles.heroSubtitle}>
+              Hi, I'm Kirti Kumar Piplaj
+            </h2>
+            <motion.p className={styles.heroDescription} variants={fadeIn}>
               I specialize in building exceptional digital experiences. Currently, I&apos;m focused on building accessible, human-centered products using modern web technologies. Recently, I have also ventured deep into the world of AI—doing <strong>vibe coding</strong>, meaning I can build almost anything you can imagine just by using prompts!
-            </p>
+            </motion.p>
             <div className={styles.heroCta}>
               <a href="#projects" className="btn-primary">
                 <span className="btn-primary-content">Explore My Work</span>
@@ -126,46 +189,58 @@ export default function Home() {
               <a href="#contact" className="btn-secondary">Let&apos;s Talk</a>
             </div>
             <div className={styles.socialLinks}>
-              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaLinkedin size={24} /></a>
-              <a href="mailto:kpiplaj0108@gmail.com" className={styles.socialIcon}><Mail size={24} /></a>
-              <a href="tel:9340531981" className={styles.socialIcon}><Phone size={24} /></a>
+              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile" className={styles.socialIcon}><FaLinkedin size={24} /></a>
+              <a href="mailto:kpiplaj0108@gmail.com" aria-label="Send Email" className={styles.socialIcon}><Mail size={24} /></a>
+              <a href="tel:+919340531981" aria-label="Call Phone" className={styles.socialIcon}><Phone size={24} /></a>
             </div>
           </motion.div>
 
           {/* Hero Avatar with Animations */}
-          <motion.div 
+          <motion.div
             className={styles.heroImageContainer}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{ y: yImages }}
           >
-            <motion.img 
-              src="/images/avatar.png" 
-              alt="Kirti Avatar" 
+            <motion.img
+              src="/images/avatar.png"
+              alt="Kirti Kumar Piplaj - Senior Frontend Developer"
               className={styles.heroAvatar}
               variants={floatAnimation}
               initial="hidden"
               animate="visible"
+              loading="eager"
+              decoding="async"
+              style={{ willChange: 'transform' }}
             />
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            className={styles.scrollIndicator}
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <a href="#about" aria-label="Scroll to About"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
         {/* About & Skills Section */}
         <section id="about" className={styles.section}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}>
-            <h2 className={styles.sectionTitle}>About Me & Vibe</h2>
-            <div className={styles.aboutGrid}>
+            <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>About Me & Vibe</motion.h2>
+            <div className={styles.aboutContainer}>
               <div className={styles.aboutText}>
                 <p>
-                  Hello! My name is Kirti and I enjoy creating things that live on the internet. What started as hacking together simple HTML & CSS has evolved into a full-fledged passion for engineering highly interactive web applications.
+                  Hello! My name is Kirti and I am a <strong>Senior Frontend Developer</strong> passionate about engineering highly interactive web applications. From translating complex Figma designs into pixel-perfect code to defining robust frontend architectures and conducting rigorous code reviews, my core expertise lies in building scalable, state-of-the-art user interfaces.
                 </p>
                 <p>
-                  Beyond traditional coding, I have strongly embraced the <strong>AI revolution</strong>. I am constantly working on AI integrations and doing <span className="gradient-text">vibe coding</span>. With advanced prompt engineering, I can rapidly prototype, debug, and build entire software architectures just by chatting with LLMs!
+                  While I take pride in hand-crafting clean, optimized code manually, I have also strongly embraced the <strong>AI revolution</strong>. As an additional superpower, I leverage AI tools to practice <span className="gradient-text">vibe coding</span>. With advanced prompt engineering, I can rapidly prototype, debug, and augment my core development workflows by collaborating directly with LLMs!
                 </p>
-                
+
                 {/* Hobbies Grid */}
-                <h3 style={{ marginTop: "2rem", marginBottom: "1rem" }}>My Vibe & Interests</h3>
+                <h3 style={{ marginTop: "3rem", marginBottom: "2rem" }}>My Vibe & Interests</h3>
                 <div className={styles.hobbiesGrid}>
                   <motion.div className={`glass-panel ${styles.hobbyCard}`} whileHover={{ scale: 1.05, rotate: -2 }}>
                     <Gamepad2 size={32} className="gradient-text" />
@@ -184,55 +259,153 @@ export default function Home() {
                   </motion.div>
                 </div>
               </div>
-
-              <div className={styles.skillsContainer}>
-                <h3>Technical Arsenal</h3>
-                <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <motion.div variants={fadeIn} className={styles.skillCategory}>
-                    <h4><Layout size={18} className="gradient-text"/> Core Frontend</h4>
-                    <div className={styles.skillsList}>
-                      {["ReactJS", "NextJS", "Vuejs", "Javascript", "HTML5", "CSS3"].map(skill => (
-                        <span key={skill} className={styles.skillBadge}>{skill}</span>
-                      ))}
-                    </div>
-                  </motion.div>
-                  <motion.div variants={fadeIn} className={styles.skillCategory}>
-                    <h4><Code2 size={18} className="gradient-text"/> Styling & UI</h4>
-                    <div className={styles.skillsList}>
-                      {["TailwindCSS", "Bootstrap", "MUI", "Framer Motion", "Vanilla CSS"].map(skill => (
-                        <span key={skill} className={styles.skillBadge}>{skill}</span>
-                      ))}
-                    </div>
-                  </motion.div>
-                  <motion.div variants={fadeIn} className={styles.skillCategory}>
-                    <h4><Sparkles size={18} className="gradient-text"/> AI & Vibe Coding</h4>
-                    <div className={styles.skillsList}>
-                      {["Prompt Engineering", "Vibe Coding", "LLM Integrations", "AI Agents"].map(skill => (
-                        <span key={skill} className={styles.skillBadge}>{skill}</span>
-                      ))}
-                    </div>
-                  </motion.div>
-                  <motion.div variants={fadeIn} className={styles.skillCategory}>
-                    <h4><Terminal size={18} className="gradient-text"/> Tools & Others</h4>
-                    <div className={styles.skillsList}>
-                      {["Git", "Redux", "Google Analytics", "Python (Basic)"].map(skill => (
-                        <span key={skill} className={styles.skillBadge}>{skill}</span>
-                      ))}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </div>
             </div>
+
+            <div className={styles.skillsContainer}>
+              <h3 className={styles.sectionTitle}>Technical Arsenal</h3>
+              <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.skillsGrid}>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Layout size={18} className="gradient-text" /> Core Frontend</h4>
+                  <div className={styles.skillsList}>
+                    {["React.js", "Next.js", "TypeScript", "JavaScript", "Vue.js", "HTML5/CSS3"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Database size={18} className="gradient-text" /> State & Data</h4>
+                  <div className={styles.skillsList}>
+                    {["Redux Toolkit", "Zustand", "TanStack Query", "React Hook Form", "Zod"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Code2 size={18} className="gradient-text" /> Styling & UI</h4>
+                  <div className={styles.skillsList}>
+                    {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Sparkles size={18} className="gradient-text" /> AI & Vibe Coding</h4>
+                  <div className={styles.skillsList}>
+                    {["Cursor", "Claude", "ChatGPT", "Codex", "Kiro", "Antigravity", "Prompt Engineering", "LLMs"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Terminal size={18} className="gradient-text" /> Web3 Integration</h4>
+                  <div className={styles.skillsList}>
+                    {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div variants={fadeIn} className={styles.skillCategory}>
+                  <h4><Code2 size={18} className="gradient-text" /> Backend & Tools</h4>
+                  <div className={styles.skillsList}>
+                    {["NestJS", "Node.js", "Firebase", "Git", "AWS S3", "Vercel"].map(skill => (
+                      <motion.span 
+                        key={skill} 
+                        className={styles.skillBadge}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.15}
+                        whileHover={{ scale: 1.1, cursor: "grab" }}
+                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            className={styles.scrollIndicator}
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <a href="#experience" aria-label="Scroll to Experience"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
         {/* Experience Section */}
         <section id="experience" className={styles.section}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
-            <h2 className={styles.sectionTitle}>Where I&apos;ve Worked</h2>
-            <div className={styles.timeline}>
-              
-              <motion.div variants={fadeIn} className={styles.timelineBlock}>
+            <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>Where I&apos;ve Worked</motion.h2>
+            <div className={styles.timeline} ref={experienceRef}>
+              <motion.div className={styles.timelineBubble} style={{ top: bubbleY }} />
+
+              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
+                <div className={styles.timelineDot}></div>
+                <div className={`glass-panel ${styles.timelineContent}`}>
+                  <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Codes for Tomorrow (CFT)</span></h3>
+                  <div className={styles.timelineDate}>Indore, India | 08/2024 - Present</div>
+                  <ul className={styles.projectWorkings}>
+                    <li>Build and maintain production-grade frontend applications across Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>
+                    <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development — shipping features end-to-end without UI designs, accelerating delivery by 3-5x.</li>
+                  </ul>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
                 <div className={styles.timelineDot}></div>
                 <div className={`glass-panel ${styles.timelineContent}`}>
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Web Impact Software Solutions</span></h3>
@@ -245,7 +418,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeIn} className={styles.timelineBlock}>
+              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
                 <div className={styles.timelineDot}></div>
                 <div className={`glass-panel ${styles.timelineContent}`}>
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Jona</span></h3>
@@ -258,7 +431,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeIn} className={styles.timelineBlock}>
+              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
                 <div className={styles.timelineDot}></div>
                 <div className={`glass-panel ${styles.timelineContent}`}>
                   <h3 className={styles.timelineRole}>Software Engineer <span className="gradient-text">@ Bellurbis Technologies</span></h3>
@@ -271,7 +444,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeIn} className={styles.timelineBlock}>
+              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
                 <div className={styles.timelineDot}></div>
                 <div className={`glass-panel ${styles.timelineContent}`}>
                   <h3 className={styles.timelineRole}>Internship - Frontend Developer <span className="gradient-text">@ HemansAI</span></h3>
@@ -282,256 +455,203 @@ export default function Home() {
                   </ul>
                 </div>
               </motion.div>
-              
+
             </div>
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            className={styles.scrollIndicator}
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <a href="#projects" aria-label="Scroll to Projects"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
         {/* Projects Section */}
         <section id="projects" className={styles.section}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
-            <h2 className={styles.sectionTitle}>Some Things I&apos;ve Built</h2>
+            <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>Some Things I&apos;ve Built</motion.h2>
             <p className={styles.sectionSubtitle}>A collection of projects showcasing my expertise in modern web development.</p>
-            
+
             <div className={styles.projectsGrid}>
-              
-              {/* Cryptiva */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <img src="/images/projects/cryptiva.png" alt="Cryptiva" className={styles.projectImage} style={{ objectPosition: 'top' }} />
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible">
-                      <Layout className={styles.projectIcon} size={28} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
+
+
+              {/* House of Frac */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
+                        <Layout className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>House of Frac</h3>
+                    <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Interactive map integration utilizing Google Maps API.</li>
+                      <li>Real-time socket connections with Socket.io-client & Firebase.</li>
+                      <li>State of the art animations via GSAP and Framer Motion.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>Firebase</span>
+                      <span className={styles.techTag}>GSAP</span>
+                    </div>
                   </div>
-                  <h3 className={styles.projectTitle}>Cryptiva</h3>
-                  <p className={styles.projectDesc}>A premium Web3 platform offering transparency, DAO governance, and decentralized token staking.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Robust frontend built with React & Redux Toolkit.</li>
-                    <li>Highly animated UI utilizing Framer Motion.</li>
-                    <li>Integrated i18n for multilingual support.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>Redux</span>
-                    <span className={styles.techTag}>Framer</span>
-                    <span className={styles.techTag}>Webpack</span>
-                  </div>
-                </div>
-              </TiltCard>
+                </TiltCard>
               </motion.div>
 
-              {/* Art & Ode Portal */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <img src="/images/projects/art-and-ode.png" alt="Art & Ode" className={styles.projectImage} style={{ objectFit: 'contain', padding: '2rem', background: '#fff' }} />
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
-                      <Layout className={styles.projectIcon} size={28} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
+
+              {/* Mera Astro */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible">
+                        <Database className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>Mera Astro</h3>
+                    <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Robust frontend built with React 19 & Vite.</li>
+                      <li>Utilized Material UI (MUI) for accessible components.</li>
+                      <li>Advanced form handling and global state via Zustand.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Vite</span>
+                      <span className={styles.techTag}>MUI</span>
+                      <span className={styles.techTag}>Zustand</span>
+                    </div>
                   </div>
-                  <h3 className={styles.projectTitle}>Art & Ode Portal</h3>
-                  <p className={styles.projectDesc}>A high-performance modern web application for art discovery and interactive audio experiences.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Next-generation React 19 & Vite architecture.</li>
-                    <li>Real-time database integration via Firebase.</li>
-                    <li>Complex state management using Zustand & React Query.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React 19</span>
-                    <span className={styles.techTag}>Vite</span>
-                    <span className={styles.techTag}>Firebase</span>
-                    <span className={styles.techTag}>Zustand</span>
+                </TiltCard>
+              </motion.div>
+
+              {/* OCCSS Portal */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
+                        <Layout className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
+                    <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Built on Next.js 16 with App Router and React 19.</li>
+                      <li>TailwindCSS v4 implementation for rapid responsive styling.</li>
+                      <li>Integrated Katex for complex mathematical rendering.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>TailwindCSS v4</span>
+                      <span className={styles.techTag}>TypeScript</span>
+                    </div>
                   </div>
-                </div>
-              </TiltCard>
+                </TiltCard>
               </motion.div>
 
               {/* Bridgekey */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <img src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
-                      <Code2 className={styles.projectIcon} size={28} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
+                        <Code2 className={styles.projectIcon} size={28} />
+                      </motion.div>
+                      <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>Bridgekey</h3>
+                    <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Dynamic React UI with optimized Webpack builds.</li>
+                      <li>Integration of Redux Saga for side-effect management.</li>
+                      <li>Fully localized interface with react-i18next.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>TailwindCSS</span>
+                    </div>
                   </div>
-                  <h3 className={styles.projectTitle}>Bridgekey</h3>
-                  <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Dynamic React UI with optimized Webpack builds.</li>
-                    <li>Integration of Redux Saga for side-effect management.</li>
-                    <li>Fully localized interface with react-i18next.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>Redux</span>
-                    <span className={styles.techTag}>TailwindCSS</span>
-                  </div>
-                </div>
-              </TiltCard>
+                </TiltCard>
               </motion.div>
 
-              {/* Jotlingo */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <img src="/images/projects/jotlingo.png" alt="Jotlingo" className={styles.projectImage} style={{ objectFit: 'contain', padding: '2rem', background: '#fff' }} />
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
-                      <Layout className={styles.projectIcon} size={28} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
-                  </div>
-                  <h3 className={styles.projectTitle}>JotLingo</h3>
-                  <p className={styles.projectDesc}>Hybrid AI and human-in-the-loop translation platform delivering publication-ready Hindi, Marathi, and Telugu translations.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Developed highly scalable UI using React 19 and Vite.</li>
-                    <li>Integrated real-time operations using Firebase and Zustand.</li>
-                    <li>Implemented robust offline caching with IndexedDB and Workbox.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React 19</span>
-                    <span className={styles.techTag}>Firebase</span>
-                    <span className={styles.techTag}>Zustand</span>
-                    <span className={styles.techTag}>IndexedDB</span>
-                  </div>
-                </div>
-              </TiltCard>
-              </motion.div>
 
-                            {/* Mera Astro */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible">
-                      <Database className={styles.projectIcon} size={36} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
-                  </div>
-                  <h3 className={styles.projectTitle}>Mera Astro</h3>
-                  <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Robust frontend built with React 19 & Vite.</li>
-                    <li>Utilized Material UI (MUI) for accessible components.</li>
-                    <li>Advanced form handling and global state via Zustand.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React 19</span>
-                    <span className={styles.techTag}>Vite</span>
-                    <span className={styles.techTag}>MUI</span>
-                    <span className={styles.techTag}>Zustand</span>
-                  </div>
-                </div>
-              </TiltCard>
-              </motion.div>
-              
-              {/* OCCSS Portal */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
-                      <Layout className={styles.projectIcon} size={36} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
-                  </div>
-                  <h3 className={styles.projectTitle}>OCCSS Portal</h3>
-                  <p className={styles.projectDesc}>A highly robust Next.js portal featuring community engagement, research publications, and events tracking.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Built on Next.js 16 with App Router and React 19.</li>
-                    <li>TailwindCSS v4 implementation for rapid responsive styling.</li>
-                    <li>Integrated Katex for complex mathematical rendering.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>Next.js</span>
-                    <span className={styles.techTag}>React 19</span>
-                    <span className={styles.techTag}>TailwindCSS v4</span>
-                    <span className={styles.techTag}>TypeScript</span>
-                  </div>
-                </div>
-              </TiltCard>
-              </motion.div>
-              
+
               {/* MST Mint Portal & DAO */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
-                      <Code2 className={styles.projectIcon} size={36} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
+                        <Code2 className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
+                    <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Next.js based decentralized application interface.</li>
+                      <li>Framer Motion for fluid micro-interactions and transitions.</li>
+                      <li>Schema validation and forms using Zod and React Hook Form.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>Framer Motion</span>
+                      <span className={styles.techTag}>TailwindCSS v4</span>
+                      <span className={styles.techTag}>Zod</span>
+                    </div>
                   </div>
-                  <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
-                  <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Next.js based decentralized application interface.</li>
-                    <li>Framer Motion for fluid micro-interactions and transitions.</li>
-                    <li>Schema validation and forms using Zod and React Hook Form.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>Next.js</span>
-                    <span className={styles.techTag}>Framer Motion</span>
-                    <span className={styles.techTag}>TailwindCSS v4</span>
-                    <span className={styles.techTag}>Zod</span>
-                  </div>
-                </div>
-              </TiltCard>
+                </TiltCard>
               </motion.div>
-              
+
               {/* Chain Pay */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
-                      <Database className={styles.projectIcon} size={36} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
+                        <Database className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>Chain Pay</h3>
+                    <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
+                      <li>Implemented complex data visualizations with Recharts & ApexCharts.</li>
+                      <li>Leveraged GSAP & Framer Motion for high-fidelity animations.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>GSAP</span>
+                      <span className={styles.techTag}>Webpack</span>
+                    </div>
                   </div>
-                  <h3 className={styles.projectTitle}>Chain Pay</h3>
-                  <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
-                    <li>Implemented complex data visualizations with Recharts & ApexCharts.</li>
-                    <li>Leveraged GSAP & Framer Motion for high-fidelity animations.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>Redux</span>
-                    <span className={styles.techTag}>GSAP</span>
-                    <span className={styles.techTag}>Webpack</span>
-                  </div>
-                </div>
-              </TiltCard>
-              </motion.div>
-              
-              {/* House of Frac */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>\n                <TiltCard className={styles.projectCard}>
-                <div className={styles.projectContent}>
-                  <div className={styles.projectHeader}>
-                    <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
-                      <Layout className={styles.projectIcon} size={36} />
-                    </motion.div>
-                    <a href="#" className={styles.projectLink}><ExternalLink size={20} /></a>
-                  </div>
-                  <h3 className={styles.projectTitle}>House of Frac</h3>
-                  <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
-                  <ul className={styles.projectWorkings}>
-                    <li>Interactive map integration utilizing Google Maps API.</li>
-                    <li>Real-time socket connections with Socket.io-client & Firebase.</li>
-                    <li>State of the art animations via GSAP and Framer Motion.</li>
-                  </ul>
-                  <div className={styles.projectTechStack}>
-                    <span className={styles.techTag}>React 19</span>
-                    <span className={styles.techTag}>Redux</span>
-                    <span className={styles.techTag}>Firebase</span>
-                    <span className={styles.techTag}>GSAP</span>
-                  </div>
-                </div>
-              </TiltCard>
+                </TiltCard>
               </motion.div>
             </div>
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            className={styles.scrollIndicator}
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <a href="#contact" aria-label="Scroll to Contact"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
@@ -548,24 +668,24 @@ export default function Home() {
                 <input type="email" placeholder="Email" className={styles.inputField} />
               </div>
               <textarea placeholder="Message" className={styles.inputField} rows={5}></textarea>
-              <button className="btn-primary" style={{ marginTop: "1rem", width: "100%" }}>
+              <button type="submit" className="btn-primary" style={{ marginTop: "1rem", width: "100%" }}>
                 <span className="btn-primary-content">Say Hello</span>
               </button>
             </div>
-            
+
             <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
-                <Mail size={20} className="gradient-text"/>
+                <Mail size={20} className="gradient-text" />
                 <span>kpiplaj0108@gmail.com</span>
               </div>
               <div className={styles.contactItem}>
-                <Phone size={20} className="gradient-text"/>
+                <Phone size={20} className="gradient-text" />
                 <span>+91 9340531981</span>
               </div>
             </div>
           </motion.div>
         </section>
-        
+
       </div>
 
       {/* Footer */}
