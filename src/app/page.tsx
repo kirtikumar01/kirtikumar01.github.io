@@ -13,6 +13,13 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Contact form state
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formErrors, setFormErrors] = useState({ name: "", email: "", message: "" });
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [formTouched, setFormTouched] = useState({ name: false, email: false, message: false });
+
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
@@ -26,6 +33,14 @@ export default function Home() {
     const handleScroll = () => {
       const sections = ["home", "about", "experience", "projects", "contact"];
       const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // If user has scrolled to the very bottom, force contact active
+      if (scrollY + windowHeight >= docHeight - 50) {
+        setActiveSection("contact");
+        return;
+      }
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -54,6 +69,77 @@ export default function Home() {
 
   // Close mobile menu when navigating
   const handleNavClick = () => setMobileMenuOpen(false);
+
+  // Form validation
+  const validateField = (name: string, value: string): string => {
+    if (name === "name") {
+      if (!value.trim()) return "Name is required.";
+      if (value.trim().length < 2) return "Name must be at least 2 characters.";
+    }
+    if (name === "email") {
+      if (!value.trim()) return "Email is required.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Please enter a valid email.";
+    }
+    if (name === "message") {
+      if (!value.trim()) return "Message is required.";
+      if (value.trim().length < 10) return "Message must be at least 10 characters.";
+    }
+    return "";
+  };
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (formTouched[name as keyof typeof formTouched]) {
+      setFormErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+    }
+  };
+
+  const handleFormBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormTouched(prev => ({ ...prev, [name]: true }));
+    setFormErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
+  };
+
+  const isFormValid =
+    formData.name.trim().length >= 2 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
+    formData.message.trim().length >= 10;
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Touch all fields to show all errors
+    setFormTouched({ name: true, email: true, message: true });
+    const errors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      message: validateField("message", formData.message),
+    };
+    setFormErrors(errors);
+    if (errors.name || errors.email || errors.message) return;
+
+    setFormStatus("sending");
+    try {
+      // Replace YOUR_FORMSPREE_ID with your actual Formspree form ID
+      // Sign up free at https://formspree.io → create a form → copy the ID
+      const res = await fetch("https://formspree.io/f/mkjgbovd", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name: formData.name, email: formData.email, message: formData.message }),
+      });
+      if (res.ok) {
+        setFormStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setFormTouched({ name: false, email: false, message: false });
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
+
+
 
 
   const fadeIn = {
@@ -662,16 +748,92 @@ export default function Home() {
             <p style={{ color: "var(--text-secondary)", marginBottom: "3rem" }}>
               Although I&apos;m currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
-            <div className={styles.contactForm}>
+
+            {/* Success Banner */}
+            {formStatus === "success" && (
+              <motion.div
+                className={styles.formSuccess}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <span className={styles.formSuccessIcon}>✓</span>
+                <div>
+                  <strong>Message sent successfully!</strong>
+                  <p>Thanks for reaching out. I&apos;ll get back to you as soon as possible.</p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Banner */}
+            {formStatus === "error" && (
+              <motion.div
+                className={styles.formError}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <span>⚠</span>
+                <div>
+                  <strong>Something went wrong.</strong>
+                  <p>Please try again or email me directly at kpiplaj0108@gmail.com</p>
+                </div>
+              </motion.div>
+            )}
+
+            <form className={styles.contactForm} onSubmit={handleFormSubmit} noValidate>
               <div className={styles.formGroup}>
-                <input type="text" placeholder="Name" className={styles.inputField} />
-                <input type="email" placeholder="Email" className={styles.inputField} />
+                <div className={styles.formField}>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name *"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    onBlur={handleFormBlur}
+                    className={`${styles.inputField} ${formErrors.name ? styles.inputError : formTouched.name && !formErrors.name ? styles.inputValid : ""}`}
+                    disabled={formStatus === "sending" || formStatus === "success"}
+                    autoComplete="name"
+                  />
+                  {formErrors.name && <span className={styles.fieldError}>{formErrors.name}</span>}
+                </div>
+                <div className={styles.formField}>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email *"
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    onBlur={handleFormBlur}
+                    className={`${styles.inputField} ${formErrors.email ? styles.inputError : formTouched.email && !formErrors.email ? styles.inputValid : ""}`}
+                    disabled={formStatus === "sending" || formStatus === "success"}
+                    autoComplete="email"
+                  />
+                  {formErrors.email && <span className={styles.fieldError}>{formErrors.email}</span>}
+                </div>
               </div>
-              <textarea placeholder="Message" className={styles.inputField} rows={5}></textarea>
-              <button type="submit" className="btn-primary" style={{ marginTop: "1rem", width: "100%" }}>
-                <span className="btn-primary-content">Say Hello</span>
+              <div className={styles.formField}>
+                <textarea
+                  name="message"
+                  placeholder="Message * (min. 10 characters)"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  onBlur={handleFormBlur}
+                  className={`${styles.inputField} ${formErrors.message ? styles.inputError : formTouched.message && !formErrors.message ? styles.inputValid : ""}`}
+                  rows={5}
+                  disabled={formStatus === "sending" || formStatus === "success"}
+                />
+                {formErrors.message && <span className={styles.fieldError}>{formErrors.message}</span>}
+              </div>
+              <button
+                type="submit"
+                className="btn-primary"
+                style={{ marginTop: "1rem", width: "100%", opacity: (!isFormValid || formStatus === "sending" || formStatus === "success") ? 0.5 : 1, cursor: (!isFormValid || formStatus === "sending" || formStatus === "success") ? "not-allowed" : "pointer", transition: "opacity 0.3s ease" }}
+                disabled={!isFormValid || formStatus === "sending" || formStatus === "success"}
+              >
+                <span className="btn-primary-content">
+                  {formStatus === "sending" ? "Sending…" : formStatus === "success" ? "Message Sent ✓" : "Say Hello"}
+                </span>
               </button>
-            </div>
+            </form>
 
             <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
@@ -685,6 +847,7 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
+
 
       </div>
 
