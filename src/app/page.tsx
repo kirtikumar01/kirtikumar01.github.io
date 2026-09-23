@@ -258,6 +258,10 @@ export default function Home() {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
             ))}
+            <div className={styles.navSocials}>
+              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="LinkedIn"><FaLinkedin size={18} /></a>
+              <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="GitHub"><FaGithub size={18} /></a>
+            </div>
           </div>
           {/* Hamburger button - mobile only */}
           <button
@@ -294,6 +298,15 @@ export default function Home() {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </motion.a>
             ))}
+            <motion.div 
+              className={styles.mobileNavSocials}
+              initial={{ opacity: 0, y: 20 }}
+              animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: mobileMenuOpen ? 5 * 0.08 + 0.1 : 0, duration: 0.3 }}
+            >
+              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="LinkedIn"><FaLinkedin size={24} /></a>
+              <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="GitHub"><FaGithub size={24} /></a>
+            </motion.div>
           </div>
         </motion.div>
       </nav>

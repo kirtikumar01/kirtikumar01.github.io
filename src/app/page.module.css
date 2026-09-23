@@ -101,6 +101,49 @@
   width: 100%;
 }
 
+.navSocials {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navSocialLink {
+  color: var(--text-secondary);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navSocialLink:hover {
+  color: var(--accent-1);
+  transform: translateY(-2px);
+}
+
+.mobileNavSocials {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileSocialLink {
+  color: var(--text-secondary);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileSocialLink:hover {
+  color: var(--accent-1);
+}
+
 /* Sections */
 .section {
   position: relative;
