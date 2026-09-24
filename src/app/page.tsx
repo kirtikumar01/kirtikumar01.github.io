@@ -628,83 +628,6 @@ export default function Home() {
             <div className={styles.projectsGrid}>
 
 
-              {/* House of Frac */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
-                        <Layout className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
-                        {/* TODO: Replace staging URL with production URL */}
-                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>House of Frac</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
-                    <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Interactive map integration utilizing Google Maps API.</li>
-                      <li>Real-time socket connections with Socket.io-client & Firebase.</li>
-                      <li>State of the art animations via GSAP and Framer Motion.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>React 19</span>
-                      <span className={styles.techTag}>Redux</span>
-                      <span className={styles.techTag}>Firebase</span>
-                      <span className={styles.techTag}>GSAP</span>
-                    </div>
-                    {process.env.NODE_ENV !== "production" && (
-                      <div style={{ marginTop: "1.5rem" }}>
-                      <Link href="/projects/house-of-frac" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</Link>
-                    </div>
-                    )}
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-
-              {/* Mera Astro */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible">
-                        <Database className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
-                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>Mera Astro</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
-                    <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Robust frontend built with React 19 & Vite.</li>
-                      <li>Utilized Material UI (MUI) for accessible components.</li>
-                      <li>Advanced form handling and global state via Zustand.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>React 19</span>
-                      <span className={styles.techTag}>Vite</span>
-                      <span className={styles.techTag}>MUI</span>
-                      <span className={styles.techTag}>Zustand</span>
-                    </div>
-                    {process.env.NODE_ENV !== "production" && (
-                      <div style={{ marginTop: "1.5rem" }}>
-                      <Link href="/projects/mera-astro" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</Link>
-                    </div>
-                    )}
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-
               {/* OCCSSG Portal */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
@@ -735,6 +658,73 @@ export default function Home() {
               </motion.div>
 
 
+              {/* House of Frac */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
+                        <Layout className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <div className={styles.projectLinks}>
+                        {/* TODO: Replace staging URL with production URL */}
+                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
+                    </div>
+                    <h3 className={styles.projectTitle}>House of Frac</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
+                    <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Interactive map integration utilizing Google Maps API.</li>
+                      <li>Real-time socket connections with Socket.io-client & Firebase.</li>
+                      <li>State of the art animations via GSAP and Framer Motion.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>Firebase</span>
+                      <span className={styles.techTag}>GSAP</span>
+                    </div>
+                    
+                  </div>
+                </TiltCard>
+              </motion.div>
+
+
+              {/* Mera Astro */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible">
+                        <Database className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <div className={styles.projectLinks}>
+                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
+                    </div>
+                    <h3 className={styles.projectTitle}>Mera Astro</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
+                    <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Robust frontend built with React 19 & Vite.</li>
+                      <li>Utilized Material UI (MUI) for accessible components.</li>
+                      <li>Advanced form handling and global state via Zustand.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Vite</span>
+                      <span className={styles.techTag}>MUI</span>
+                      <span className={styles.techTag}>Zustand</span>
+                    </div>
+                    
+                  </div>
+                </TiltCard>
+              </motion.div>
+
+
               {/* Bridgekey */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
@@ -745,7 +735,6 @@ export default function Home() {
                         <Code2 className={styles.projectIcon} size={28} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
                         <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
@@ -840,19 +829,6 @@ export default function Home() {
         </section>
 
         
-        {/* Testimonials Section */}
-        {process.env.NODE_ENV !== "production" && (
-          <section id="testimonials" className={styles.section}>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
-              <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>What People Say</motion.h2>
-              <div className="glass-panel" style={{ padding: "2rem", textAlign: "center" }}>
-                <p style={{ fontStyle: "italic", marginBottom: "1rem" }}>"[ADD TESTIMONIAL QUOTE]"</p>
-                <p><strong>- [ADD TESTIMONIAL AUTHOR]</strong></p>
-              </div>
-            </motion.div>
-          </section>
-        )}
-
         {/* Contact Section */}
         <section id="contact" className={`${styles.section} ${styles.contactSection}`}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="glass-panel" style={{ maxWidth: "800px", margin: "0 auto" }}>
