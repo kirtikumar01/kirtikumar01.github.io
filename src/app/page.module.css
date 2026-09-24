@@ -59,13 +59,12 @@
 }
 
 .navContainer {
-  /* Matches .container token exactly */
   width: 100%;
-  max-width: var(--site-max-width);
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--site-pad-x);
-  padding-right: var(--site-pad-x);
+  padding-left: 2rem;
+  padding-right: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -366,6 +365,11 @@
   position: relative;
   z-index: 1;
   scroll-margin-top: 90px;
+  /* Fallback padding — .container on pageWrapper is the primary source,
+     but this ensures no section ever touches the edge even if wrapping changes */
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
 }
 
 .sectionTitle {
@@ -1150,8 +1154,8 @@
   }
 
   .navContainer {
-    padding-left: var(--site-pad-x-sm);
-    padding-right: var(--site-pad-x-sm);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .navLinks {
@@ -1254,11 +1258,14 @@
 @media (max-width: 480px) {
   .pageWrapper {
     gap: 4rem;
-    padding: 4rem 0 2rem;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    /* horizontal padding comes from .container in globals.css */
   }
 
   .navContainer {
-    padding: 0 1.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .timelineRole {

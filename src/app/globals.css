@@ -115,26 +115,28 @@ img {
 
 /* ============================================================
    LAYOUT — single source of truth
+   max-width: 1280px  |  desktop pad: 2rem  |  mobile pad: 1.25rem
    ============================================================ */
-:root {
-  --site-max-width: 1280px;
-  --site-pad-x: 2rem;       /* desktop horizontal padding  */
-  --site-pad-x-sm: 1.25rem; /* mobile  horizontal padding  */
-}
-
 .container {
   width: 100%;
-  max-width: var(--site-max-width);
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--site-pad-x);
-  padding-right: var(--site-pad-x);
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .container {
-    padding-left: var(--site-pad-x-sm);
-    padding-right: var(--site-pad-x-sm);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 }
 
