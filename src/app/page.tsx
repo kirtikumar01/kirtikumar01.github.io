@@ -178,7 +178,7 @@ export default function Home() {
     setFormStatus("sending");
     lastSubmitRef.current = now;
     try {
-      const res = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID || "[ADD FORMSPREE ID]"}`, {
+      const res = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID || ""}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ name: formData.name.trim(), email: formData.email.trim(), message: formData.message.trim() }),
@@ -701,6 +701,35 @@ export default function Home() {
                 </TiltCard>
               </motion.div>
 
+
+              {/* OCCSSG Portal */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
+                        <Layout className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
+                    <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Built on Next.js 16 with App Router and React 19.</li>
+                      <li>TailwindCSS v4 implementation for rapid responsive styling.</li>
+                      <li>Integrated Katex for complex mathematical rendering.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>TailwindCSS v4</span>
+                      <span className={styles.techTag}>TypeScript</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
+
+
               {/* Bridgekey */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
@@ -731,6 +760,63 @@ export default function Home() {
                   </div>
                 </TiltCard>
               </motion.div>
+
+
+              {/* MST Mint Portal & DAO */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
+                        <Code2 className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
+                    <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Next.js based decentralized application interface.</li>
+                      <li>Framer Motion for fluid micro-interactions and transitions.</li>
+                      <li>Schema validation and forms using Zod and React Hook Form.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>Framer Motion</span>
+                      <span className={styles.techTag}>TailwindCSS v4</span>
+                      <span className={styles.techTag}>Zod</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
+
+
+              {/* Chain Pay */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
+                        <Database className={styles.projectIcon} size={36} />
+                      </motion.div>
+                      <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                    </div>
+                    <h3 className={styles.projectTitle}>Chain Pay</h3>
+                    <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
+                      <li>Implemented complex data visualizations with Recharts & ApexCharts.</li>
+                      <li>Leveraged GSAP & Framer Motion for high-fidelity animations.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>GSAP</span>
+                      <span className={styles.techTag}>Webpack</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
+
             </div>
           </motion.div>
 

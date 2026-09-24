@@ -10,10 +10,8 @@ import styles from "./page.module.css";
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  const params = Object.entries(projectsData)
-    .filter(([slug, data]) => !data.draft)
-    .map(([slug]) => ({ slug }));
-  return params.length > 0 ? params : [{ slug: "empty" }];
+  const params = Object.keys(projectsData).map((slug) => ({ slug }));
+  return params;
 }
 
 const projectsData: Record<string, any> = {
