@@ -1059,3 +1059,20 @@
   border-color: rgba(0, 240, 255, 0.3);
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
 }
+
+.navResumeBtn {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--background);
+  background: var(--text-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-left: 0.5rem;
+}
+
+.navResumeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}

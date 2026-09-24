@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kirtikumar01.github.io/sitemap.xml

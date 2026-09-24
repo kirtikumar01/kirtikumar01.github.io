@@ -178,7 +178,7 @@ export default function Home() {
     setFormStatus("sending");
     lastSubmitRef.current = now;
     try {
-      const res = await fetch("https://formspree.io/f/mkjgbovd", {
+      const res = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID || "[ADD FORMSPREE ID]"}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ name: formData.name.trim(), email: formData.email.trim(), message: formData.message.trim() }),
@@ -261,6 +261,7 @@ export default function Home() {
             <div className={styles.navSocials}>
               <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="LinkedIn"><FaLinkedin size={18} /></a>
               <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="GitHub"><FaGithub size={18} /></a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.navResumeBtn}>Resume</a>
             </div>
           </div>
           {/* Hamburger button - mobile only */}
@@ -347,11 +348,11 @@ export default function Home() {
                 <span className="btn-primary-content">Explore My Work</span>
               </a>
               <a href="#contact" className="btn-secondary">Let&apos;s Talk</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary">Download Resume</a>
             </div>
             <div className={styles.socialLinks}>
               <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile" className={styles.socialIcon}><FaLinkedin size={24} /></a>
-              <a href="mailto:kpiplaj0108@gmail.com" aria-label="Send Email" className={styles.socialIcon}><Mail size={24} /></a>
-              <a href="tel:+919340531981" aria-label="Call Phone" className={styles.socialIcon}><Phone size={24} /></a>
+              <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" aria-label="GitHub Profile" className={styles.socialIcon}><FaGithub size={24} /></a>
             </div>
           </motion.div>
 
@@ -443,7 +444,7 @@ export default function Home() {
                 <motion.div variants={fadeIn} className={styles.skillCategory}>
                   <h4><Code2 size={18} className="gradient-text" /> Styling & UI</h4>
                   <div className={styles.skillsList}>
-                    {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI"].map(skill => (
+                    {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI", "Radix UI"].map(skill => (
                       <motion.span 
                         key={skill} 
                         className={styles.skillBadge}
@@ -459,9 +460,9 @@ export default function Home() {
                   </div>
                 </motion.div>
                 <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Sparkles size={18} className="gradient-text" /> AI & Vibe Coding</h4>
+                  <h4><Sparkles size={18} className="gradient-text" /> Web3</h4>
                   <div className={styles.skillsList}>
-                    {["Cursor", "Claude", "ChatGPT", "Codex", "Kiro", "Antigravity", "Prompt Engineering", "LLMs"].map(skill => (
+                    {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect", "Coinbase Wallet"].map(skill => (
                       <motion.span 
                         key={skill} 
                         className={styles.skillBadge}
@@ -477,27 +478,9 @@ export default function Home() {
                   </div>
                 </motion.div>
                 <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Terminal size={18} className="gradient-text" /> Web3 Integration</h4>
+                  <h4><Terminal size={18} className="gradient-text" /> Tooling & Backend</h4>
                   <div className={styles.skillsList}>
-                    {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect"].map(skill => (
-                      <motion.span 
-                        key={skill} 
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Code2 size={18} className="gradient-text" /> Backend & Tools</h4>
-                  <div className={styles.skillsList}>
-                    {["NestJS", "Node.js", "Firebase", "Git", "AWS S3", "Vercel"].map(skill => (
+                    {["NestJS", "Node.js", "Supabase", "Firebase", "JWT auth flows", "AWS S3", "Vercel", "Git", "Figma", "Axios", "AI-assisted workflow"].map(skill => (
                       <motion.span 
                         key={skill} 
                         className={styles.skillBadge}
@@ -537,9 +520,9 @@ export default function Home() {
                 <div className={styles.timelineDot}></div>
                 <div className={`glass-panel ${styles.timelineContent}`}>
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Codes for Tomorrow (CFT)</span></h3>
-                  <div className={styles.timelineDate}>Indore, India | 08/2024 - Present</div>
+                  <div className={styles.timelineDate}>Indore, India | 08/2025 - Present</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Build and maintain production-grade frontend applications across [ADD METRIC] Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>
+                    {process.env.NODE_ENV !== "production" && <li>Build and maintain production-grade frontend applications across [ADD METRIC] Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>}
                     <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development, shipping features end-to-end without UI designs.</li>
                   </ul>
                   <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
@@ -558,8 +541,8 @@ export default function Home() {
                   <div className={styles.timelineDate}>Indore | 09/2023 - 07/2024</div>
                   <ul className={styles.projectWorkings}>
                     <li>Spearheaded the development of the core product utilizing Vue.js and Tailwind CSS.</li>
-                    <li>Collaborated with design teams to ensure pixel-perfect implementation of [ADD METRIC]+ UI mockups.</li>
-                    <li>Improved overall application performance and maintained highly reusable component libraries with [ADD METRIC]+ components.</li>
+                    {process.env.NODE_ENV !== "production" && <li>Collaborated with design teams to ensure pixel-perfect implementation of [ADD METRIC]+ UI mockups.</li>}
+                    {process.env.NODE_ENV !== "production" && <li>Improved overall application performance and maintained highly reusable component libraries with [ADD METRIC]+ components.</li>}
                   </ul>
                   <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
                     <span className={styles.techTag}>Vue.js</span>
@@ -575,9 +558,9 @@ export default function Home() {
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Jona</span></h3>
                   <div className={styles.timelineDate}>USA (Remote) | 04/2022 - 11/2022</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Developed a high-performance Next.js web application for selling curated journalists lists to [ADD METRIC]+ users.</li>
-                    <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system with [ADD METRIC]+ components.</li>
-                    <li>Worked asynchronously with international teams, delivering [ADD METRIC]+ features on strict deadlines.</li>
+                    {process.env.NODE_ENV !== "production" && <li>Developed a high-performance Next.js web application for selling curated journalists lists to [ADD METRIC]+ users.</li>}
+                    {process.env.NODE_ENV !== "production" && <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system with [ADD METRIC]+ components.</li>}
+                    {process.env.NODE_ENV !== "production" && <li>Worked asynchronously with international teams, delivering [ADD METRIC]+ features on strict deadlines.</li>}
                   </ul>
                   <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
                     <span className={styles.techTag}>Next.js</span>
@@ -594,8 +577,8 @@ export default function Home() {
                   <div className={styles.timelineDate}>Indore | 09/2021 - 03/2022</div>
                   <ul className={styles.projectWorkings}>
                     <li>Built a comprehensive recruitment management system using React.js.</li>
-                    <li>Implemented complex state management using Redux, handling vast amounts of candidate data ([ADD METRIC]+ records).</li>
-                    <li>Designed features enabling organizations to streamline their hiring processes efficiently for [ADD METRIC]+ clients.</li>
+                    {process.env.NODE_ENV !== "production" && <li>Implemented complex state management using Redux, handling vast amounts of candidate data ([ADD METRIC]+ records).</li>}
+                    {process.env.NODE_ENV !== "production" && <li>Designed features enabling organizations to streamline their hiring processes efficiently for [ADD METRIC]+ clients.</li>}
                   </ul>
                   <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
                     <span className={styles.techTag}>React</span>
@@ -611,7 +594,7 @@ export default function Home() {
                   <h3 className={styles.timelineRole}>Internship - Frontend Developer <span className="gradient-text">@ HemansAI</span></h3>
                   <div className={styles.timelineDate}>Indore | 01/2021 - 03/2021</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Developed RTBAnalytica, a web app showcasing [ADD METRIC]+ services and offerings using HTML, CSS, and JS.</li>
+                    {process.env.NODE_ENV !== "production" && <li>Developed RTBAnalytica, a web app showcasing [ADD METRIC]+ services and offerings using HTML, CSS, and JS.</li>}
                     <li>Gained hands-on experience with Bootstrap for rapid responsive design prototyping.</li>
                   </ul>
                   <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
@@ -653,13 +636,13 @@ export default function Home() {
                         <Layout className={styles.projectIcon} size={36} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
                         {/* TODO: Replace staging URL with production URL */}
                         <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>House of Frac</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
+                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
                     <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Interactive map integration utilizing Google Maps API.</li>
@@ -672,9 +655,11 @@ export default function Home() {
                       <span className={styles.techTag}>Firebase</span>
                       <span className={styles.techTag}>GSAP</span>
                     </div>
-                    <div style={{ marginTop: "1.5rem" }}>
+                    {process.env.NODE_ENV !== "production" && (
+                      <div style={{ marginTop: "1.5rem" }}>
                       <a href="/projects/house-of-frac" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
                     </div>
+                    )}
                   </div>
                 </TiltCard>
               </motion.div>
@@ -689,12 +674,12 @@ export default function Home() {
                         <Database className={styles.projectIcon} size={36} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
                         <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Mera Astro</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
+                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
                     <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Robust frontend built with React 19 & Vite.</li>
@@ -707,40 +692,11 @@ export default function Home() {
                       <span className={styles.techTag}>MUI</span>
                       <span className={styles.techTag}>Zustand</span>
                     </div>
-                    <div style={{ marginTop: "1.5rem" }}>
+                    {process.env.NODE_ENV !== "production" && (
+                      <div style={{ marginTop: "1.5rem" }}>
                       <a href="/projects/mera-astro" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
                     </div>
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-              {/* OCCSS Portal */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
-                        <Layout className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
-                        <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
-                    <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Built on Next.js 16 with App Router and React 19.</li>
-                      <li>TailwindCSS v4 implementation for rapid responsive styling.</li>
-                      <li>Integrated Katex for complex mathematical rendering.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>Next.js</span>
-                      <span className={styles.techTag}>React 19</span>
-                      <span className={styles.techTag}>TailwindCSS v4</span>
-                      <span className={styles.techTag}>TypeScript</span>
-                    </div>
+                    )}
                   </div>
                 </TiltCard>
               </motion.div>
@@ -755,12 +711,12 @@ export default function Home() {
                         <Code2 className={styles.projectIcon} size={28} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        {process.env.NODE_ENV !== "production" && (<a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>)}
                         <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Bridgekey</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
+                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
                     <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Dynamic React UI with optimized Webpack builds.</li>
@@ -771,73 +727,6 @@ export default function Home() {
                       <span className={styles.techTag}>React</span>
                       <span className={styles.techTag}>Redux</span>
                       <span className={styles.techTag}>TailwindCSS</span>
-                    </div>
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-
-
-              {/* MST Mint Portal & DAO */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
-                        <Code2 className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
-                        <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
-                    <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Next.js based decentralized application interface.</li>
-                      <li>Framer Motion for fluid micro-interactions and transitions.</li>
-                      <li>Schema validation and forms using Zod and React Hook Form.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>Next.js</span>
-                      <span className={styles.techTag}>Framer Motion</span>
-                      <span className={styles.techTag}>TailwindCSS v4</span>
-                      <span className={styles.techTag}>Zod</span>
-                    </div>
-                    <div style={{ marginTop: "1.5rem" }}>
-                      <a href="/projects/mst-mint-portal" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
-                    </div>
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-              {/* Chain Pay */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
-                        <Database className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
-                        <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>Chain Pay</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
-                    <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
-                      <li>Implemented complex data visualizations with Recharts & ApexCharts.</li>
-                      <li>Leveraged GSAP & Framer Motion for high-fidelity animations.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>React</span>
-                      <span className={styles.techTag}>Redux</span>
-                      <span className={styles.techTag}>GSAP</span>
-                      <span className={styles.techTag}>Webpack</span>
                     </div>
                   </div>
                 </TiltCard>
@@ -854,6 +743,20 @@ export default function Home() {
             <a href="#contact" aria-label="Scroll to Contact"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
+
+        
+        {/* Testimonials Section */}
+        {process.env.NODE_ENV !== "production" && (
+          <section id="testimonials" className={styles.section}>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
+              <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>What People Say</motion.h2>
+              <div className="glass-panel" style={{ padding: "2rem", textAlign: "center" }}>
+                <p style={{ fontStyle: "italic", marginBottom: "1rem" }}>"[ADD TESTIMONIAL QUOTE]"</p>
+                <p><strong>- [ADD TESTIMONIAL AUTHOR]</strong></p>
+              </div>
+            </motion.div>
+          </section>
+        )}
 
         {/* Contact Section */}
         <section id="contact" className={`${styles.section} ${styles.contactSection}`}>
@@ -895,7 +798,7 @@ export default function Home() {
                   <span>⚠</span>
                   <div>
                     <strong>Something went wrong.</strong>
-                    <p>Please try again or email me directly at kpiplaj0108@gmail.com</p>
+                    <p>Please try again later.</p>
                   </div>
                 </motion.div>
               )}

@@ -34,6 +34,9 @@ jobs:
         run: npm ci
 
       - name: Build Next.js site
+        env:
+          NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
+          NEXT_PUBLIC_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_ANALYTICS_ID }}
         run: npm run build
 
       - name: Upload Pages artifact

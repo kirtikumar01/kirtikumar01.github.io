@@ -10,15 +10,15 @@ import styles from "./page.module.css";
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  return [
-    { slug: "house-of-frac" },
-    { slug: "mera-astro" },
-    { slug: "mst-mint-portal" },
-  ];
+  const params = Object.entries(projectsData)
+    .filter(([slug, data]) => !data.draft)
+    .map(([slug]) => ({ slug }));
+  return params.length > 0 ? params : [{ slug: "empty" }];
 }
 
 const projectsData: Record<string, any> = {
   "house-of-frac": {
+    draft: true,
     title: "House of Frac",
     role: "[ADD ROLE]",
     overview: "An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks. It allows users to easily invest in fractional real estate assets.",
@@ -30,6 +30,7 @@ const projectsData: Record<string, any> = {
     githubLink: "https://github.com/[ADD REPO]",
   },
   "mera-astro": {
+    draft: true,
     title: "Mera Astro",
     role: "[ADD ROLE]",
     overview: "An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance.",
@@ -40,15 +41,16 @@ const projectsData: Record<string, any> = {
     liveLink: "https://meraastro.com/",
     githubLink: "https://github.com/[ADD REPO]",
   },
-  "mst-mint-portal": {
-    title: "MST Mint Portal & DAO",
+  "bridgekey": {
+    draft: true,
+    title: "Bridgekey",
     role: "[ADD ROLE]",
-    overview: "A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.",
-    techStack: ["Next.js", "Framer Motion", "TailwindCSS v4", "Zod", "React Hook Form"],
+    overview: "An interactive platform tailored for the EVM ecosystem, enabling cross-chain balance viewing, token swaps, and asset bridging.",
+    techStack: ["React", "Wagmi", "Viem", "Coinbase SDK", "TailwindCSS"],
     keyChallenge: "[ADD KEY CHALLENGE]",
     solution: "[ADD SOLUTION]",
     result: "[ADD RESULT]",
-    liveLink: "https://dao.mstblockchain.com/",
+    liveLink: "https://portfolio.bridgekey.io/",
     githubLink: "https://github.com/[ADD REPO]",
   },
 };
@@ -61,11 +63,13 @@ export default async function ProjectPage(props: { params: Params }) {
     notFound();
   }
 
-  const isProd = process.env.NODE_ENV === "production";
 
   // Helper to conditionally render blocks if they have unfilled placeholders in production
   const renderBlock = (title: string, content: string) => {
-    if (isProd && content.includes("[ADD")) {
+    if (process.env.NODE_ENV === "production" && content.includes("[ADD")) {
+      return null;
+    }
+    if (process.env.NODE_ENV === "production" && content.includes("[CONFIRM")) {
       return null;
     }
     return (
@@ -88,13 +92,13 @@ export default async function ProjectPage(props: { params: Params }) {
           <h1 className={styles.title}>{project.title}</h1>
           
           <div className={styles.links}>
-            {(!isProd || !project.githubLink.includes("[ADD")) && (
+            {(process.env.NODE_ENV !== "production" || !project.githubLink.includes("[ADD")) && (
               <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className={styles.link}>
                 <FaGithub size={20} />
                 View Source
               </a>
             )}
-            {(!isProd || !project.liveLink.includes("[ADD")) && (
+            {(process.env.NODE_ENV !== "production" || !project.liveLink.includes("[ADD")) && (
               <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className={styles.link}>
                 <ExternalLink size={20} />
                 Visit Live Site
