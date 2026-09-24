@@ -631,13 +631,13 @@ export default function Home() {
               {/* OCCSSG Portal */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/occssg.png" alt="OCCSSG Portal" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <img loading="lazy" src="/images/projects/occssg.png" alt="OCCSSG Portal" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
                         <Layout className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
                     <p className={styles.projectRole}><strong>Role:</strong> Full Stack Developer</p>
@@ -661,7 +661,7 @@ export default function Home() {
               {/* House of Frac */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <img loading="lazy" src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
@@ -669,7 +669,7 @@ export default function Home() {
                       </motion.div>
                       <div className={styles.projectLinks}>
                         {/* TODO: Replace staging URL with production URL */}
-                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>House of Frac</h3>
@@ -695,14 +695,14 @@ export default function Home() {
               {/* Mera Astro */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <img loading="lazy" src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible">
                         <Database className={styles.projectIcon} size={36} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Mera Astro</h3>
@@ -728,14 +728,14 @@ export default function Home() {
               {/* Bridgekey */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                  <img loading="lazy" src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
                         <Code2 className={styles.projectIcon} size={28} />
                       </motion.div>
                       <div className={styles.projectLinks}>
-                        <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                        <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Bridgekey</h3>
@@ -759,13 +759,13 @@ export default function Home() {
               {/* MST Mint Portal & DAO */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/mst-mint.png" alt="MST Mint Portal & DAO" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <img loading="lazy" src="/images/projects/mst-mint.png" alt="MST Mint Portal & DAO" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
                         <Code2 className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
                     <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
@@ -789,13 +789,13 @@ export default function Home() {
               {/* Chain Pay */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img src="/images/projects/chain-pay.png" alt="Chain Pay" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                  <img loading="lazy" src="/images/projects/chain-pay.png" alt="Chain Pay" className={styles.projectImage} style={{ objectPosition: 'top' }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
                         <Database className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>Chain Pay</h3>
                     <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
@@ -954,8 +954,8 @@ export default function Home() {
         <div className={styles.footerContent}>
           <p>Designed & Built by Kirti Kumar Piplaj</p>
           <div className={styles.socialLinks} style={{ marginTop: "1rem", justifyContent: "center" }}>
-            <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaLinkedin size={20} /></a>
-            <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.socialIcon}><FaGithub size={20} /></a>
+            <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.socialIcon} aria-label="LinkedIn"><FaLinkedin size={20} /></a>
+            <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.socialIcon} aria-label="GitHub"><FaGithub size={20} /></a>
           </div>
         </div>
       </footer>

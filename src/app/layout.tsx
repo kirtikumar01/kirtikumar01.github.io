@@ -5,17 +5,20 @@ export const viewport: Viewport = {
   themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kirtikumar01.github.io"),
+  alternates: {
+    canonical: "/",
+  },
   title: "Kirti Kumar Piplaj | Frontend Engineer",
   description:
-    "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
+    "Portfolio of Kirti Kumar Piplaj, a Full Stack / Frontend Engineer specializing in React, Next.js, and Web3 & Fintech Interfaces.",
   keywords: [
     "Kirti Kumar Piplaj",
     "Frontend Engineer",
+    "Full Stack Developer",
     "React",
     "Next.js",
     "Web3",
@@ -27,17 +30,17 @@ export const metadata: Metadata = {
   authors: [{ name: "Kirti Kumar Piplaj" }],
   creator: "Kirti Kumar Piplaj",
   openGraph: {
-    title: "Kirti Kumar Piplaj | Frontend Engineer",
+    title: "Kirti Kumar Piplaj | Full Stack / Frontend Engineer",
     description:
-      "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
+      "Portfolio of Kirti Kumar Piplaj, a Full Stack / Frontend Engineer specializing in React, Next.js, and Web3 & Fintech Interfaces.",
     type: "website",
     locale: "en_US",
     siteName: "Kirti Kumar Piplaj Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kirti Kumar Piplaj | Frontend Engineer",
-    description: "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
+    title: "Kirti Kumar Piplaj | Full Stack / Frontend Engineer",
+    description: "Portfolio of Kirti Kumar Piplaj, a Full Stack / Frontend Engineer specializing in React, Next.js, and Web3 & Fintech Interfaces.",
   },
 };
 
@@ -64,7 +67,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Kirti Kumar Piplaj",
               url: "https://kirtikumar01.github.io",
-              jobTitle: "Frontend Engineer",
+              jobTitle: "Full Stack / Frontend Engineer",
               sameAs: [
                 "https://github.com/kirtikumar01",
                 "https://linkedin.com/in/kirti-kumar01"

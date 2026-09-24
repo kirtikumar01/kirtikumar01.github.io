@@ -64,6 +64,9 @@ export default function CanvasParticles() {
   }, [scrollVelocity]);
 
   useEffect(() => {
+    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
