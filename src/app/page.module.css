@@ -533,13 +533,18 @@
 
 /* Scroll Indicator */
 .scrollIndicator {
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
-  opacity: 0.65;
-  transition: opacity 0.3s ease;
+  z-index: 50;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+  pointer-events: none; /* never blocks any content click */
+}
+
+.scrollIndicator a {
+  pointer-events: all; /* but the link itself is still clickable */
 }
 
 .scrollIndicator:hover {
@@ -1201,10 +1206,6 @@
 
   .heroImageContainer {
     max-width: 260px;
-  }
-
-  .scrollIndicator {
-    bottom: 0.5rem;
   }
 
   /* aboutContainer and skillsContainer inherit .container padding — no override needed */

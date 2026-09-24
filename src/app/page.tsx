@@ -15,6 +15,7 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [showScrollArrow, setShowScrollArrow] = useState(true);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -83,6 +84,13 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove);
     };
+  }, []);
+
+  // Hide scroll arrow once user scrolls past hero
+  useEffect(() => {
+    const onScroll = () => setShowScrollArrow(window.scrollY < 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Close mobile menu when navigating
@@ -349,6 +357,23 @@ export default function Home() {
         </motion.div>
       </nav>
 
+      {/* Single fixed scroll-down arrow — visible only near top of page, never overlaps content */}
+      <AnimatePresence>
+        {showScrollArrow && (
+          <motion.div
+            className={styles.scrollIndicator}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ y: { repeat: Infinity, duration: 2, ease: "easeInOut" }, opacity: { duration: 0.4 } }}
+          >
+            <a href="#about" aria-label="Scroll to About section">
+              <ChevronDown size={32} className="gradient-text" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div ref={containerRef} className={`container ${styles.pageWrapper}`}>
 
         {/* Hero Section */}
@@ -412,15 +437,6 @@ export default function Home() {
               decoding="async"
               style={{ willChange: 'transform' }}
             />
-          </motion.div>
-
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            className={styles.scrollIndicator}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <a href="#about" aria-label="Scroll to About"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
@@ -535,15 +551,6 @@ export default function Home() {
               </motion.div>
             </div>
           </motion.div>
-
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            className={styles.scrollIndicator}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <a href="#experience" aria-label="Scroll to Experience"><ChevronDown size={32} className="gradient-text" /></a>
-          </motion.div>
         </section>
 
         {/* Experience Section */}
@@ -643,15 +650,6 @@ export default function Home() {
               </motion.div>
 
             </div>
-          </motion.div>
-
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            className={styles.scrollIndicator}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <a href="#projects" aria-label="Scroll to Projects"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
@@ -852,15 +850,6 @@ export default function Home() {
               </motion.div>
 
             </div>
-          </motion.div>
-
-          {/* Scroll Down Indicator */}
-          <motion.div 
-            className={styles.scrollIndicator}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <a href="#contact" aria-label="Scroll to Contact"><ChevronDown size={32} className="gradient-text" /></a>
           </motion.div>
         </section>
 
