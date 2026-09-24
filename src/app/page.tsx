@@ -800,6 +800,7 @@ export default function Home() {
               {/* Chain Pay */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/chain-pay.png" alt="Chain Pay" className={styles.projectImage} style={{ objectPosition: 'top' }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
