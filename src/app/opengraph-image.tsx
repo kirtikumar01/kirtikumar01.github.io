@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const dynamic = "force-static"
-export const alt = 'Kirti Kumar Piplaj - Senior Frontend Developer'
+export const alt = 'Kirti Kumar Piplaj - Frontend Engineer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -51,7 +51,7 @@ export default async function Image() {
           Kirti Kumar Piplaj
         </div>
         <div style={{ fontSize: 40, color: '#9CA3AF' }}>
-          Senior Frontend Developer
+          Frontend Engineer
         </div>
       </div>
     ),

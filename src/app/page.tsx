@@ -320,11 +320,11 @@ export default function Home() {
               <span className={styles.pulseDot}></span> Available for new opportunities
             </motion.div>
             <h1 className={styles.heroTitle}>
-              Crafting Digital Experiences as a
+              Building Web3 & Fintech Interfaces as a
               <br />
               <TypeAnimation
                 sequence={[
-                  'Frontend Developer',
+                  'Frontend Engineer',
                   2000,
                   '',
                   500,
@@ -337,10 +337,10 @@ export default function Home() {
               />
             </h1>
             <h2 className={styles.heroSubtitle}>
-              Hi, I'm Kirti Kumar Piplaj
+              React · Next.js · Web3 & Fintech Interfaces
             </h2>
             <motion.p className={styles.heroDescription} variants={fadeIn}>
-              I specialize in building exceptional digital experiences. Currently, I&apos;m focused on building accessible, human-centered products using modern web technologies. Recently, I have also ventured deep into the world of AI—doing <strong>vibe coding</strong>, meaning I can build almost anything you can imagine just by using prompts!
+              Hi, I'm Kirti Kumar Piplaj. I specialize in building accessible, human-centered products using React and Next.js, with a strong focus on Web3 and fintech domains. I use AI tools (Cursor, Claude, etc.) to speed up prototyping and testing, while owning architecture, code review, and quality.
             </motion.p>
             <div className={styles.heroCta}>
               <a href="#projects" className="btn-primary">
@@ -365,7 +365,7 @@ export default function Home() {
           >
             <motion.img
               src="/images/avatar.png"
-              alt="Kirti Kumar Piplaj - Senior Frontend Developer"
+              alt="Kirti Kumar Piplaj - Frontend Engineer"
               className={styles.heroAvatar}
               variants={floatAnimation}
               initial="hidden"
@@ -393,31 +393,11 @@ export default function Home() {
             <div className={styles.aboutContainer}>
               <div className={styles.aboutText}>
                 <p>
-                  Hello! My name is Kirti and I am a <strong>Senior Frontend Developer</strong> passionate about engineering highly interactive web applications. From translating complex Figma designs into pixel-perfect code to defining robust frontend architectures and conducting rigorous code reviews, my core expertise lies in building scalable, state-of-the-art user interfaces.
+                  Hello! My name is Kirti and I am a <strong>Frontend Engineer</strong> with 3+ years of experience specializing in React and Next.js. I have a strong track record of delivering production-ready interfaces for Web3, fintech, and astrology platforms.
                 </p>
                 <p>
-                  While I take pride in hand-crafting clean, optimized code manually, I have also strongly embraced the <strong>AI revolution</strong>. As an additional superpower, I leverage AI tools to practice <span className="gradient-text">vibe coding</span>. With advanced prompt engineering, I can rapidly prototype, debug, and augment my core development workflows by collaborating directly with LLMs!
+                  I focus on translating Figma designs into pixel-perfect, accessible UIs, defining robust frontend architectures, and conducting rigorous code reviews. I also use AI tools (Cursor, Claude, etc.) to speed up prototyping and testing, while fully owning code quality. When I&apos;m not coding, you can find me enjoying gaming or watching anime.
                 </p>
-
-                {/* Hobbies Grid */}
-                <h3 style={{ marginTop: "3rem", marginBottom: "2rem" }}>My Vibe & Interests</h3>
-                <div className={styles.hobbiesGrid}>
-                  <motion.div className={`glass-panel ${styles.hobbyCard}`} whileHover={{ scale: 1.05, rotate: -2 }}>
-                    <Gamepad2 size={32} className="gradient-text" />
-                    <h4>Gaming</h4>
-                    <p>Competitive & story-driven games keep my reflexes sharp.</p>
-                  </motion.div>
-                  <motion.div className={`glass-panel ${styles.hobbyCard}`} whileHover={{ scale: 1.05, rotate: 2 }}>
-                    <Tv size={32} className="gradient-text" />
-                    <h4>Anime</h4>
-                    <p>Huge fan of anime series; love the world-building and action.</p>
-                  </motion.div>
-                  <motion.div className={`glass-panel ${styles.hobbyCard}`} whileHover={{ scale: 1.05, rotate: -2 }}>
-                    <Bot size={32} className="gradient-text" />
-                    <h4>AI & Prompting</h4>
-                    <p>Exploring LLMs and bending AI to my will with prompts.</p>
-                  </motion.div>
-                </div>
               </div>
             </div>
 
@@ -559,9 +539,15 @@ export default function Home() {
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Codes for Tomorrow (CFT)</span></h3>
                   <div className={styles.timelineDate}>Indore, India | 08/2024 - Present</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Build and maintain production-grade frontend applications across Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>
-                    <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development — shipping features end-to-end without UI designs, accelerating delivery by 3-5x.</li>
+                    <li>Build and maintain production-grade frontend applications across [ADD METRIC] Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>
+                    <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development, shipping features end-to-end without UI designs.</li>
                   </ul>
+                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
+                    <span className={styles.techTag}>React</span>
+                    <span className={styles.techTag}>Next.js</span>
+                    <span className={styles.techTag}>TypeScript</span>
+                    <span className={styles.techTag}>Web3</span>
+                  </div>
                 </div>
               </motion.div>
 
@@ -572,9 +558,14 @@ export default function Home() {
                   <div className={styles.timelineDate}>Indore | 09/2023 - 07/2024</div>
                   <ul className={styles.projectWorkings}>
                     <li>Spearheaded the development of the core product utilizing Vue.js and Tailwind CSS.</li>
-                    <li>Collaborated with design teams to ensure pixel-perfect implementation of UI mockups.</li>
-                    <li>Improved overall application performance and maintained highly reusable component libraries.</li>
+                    <li>Collaborated with design teams to ensure pixel-perfect implementation of [ADD METRIC]+ UI mockups.</li>
+                    <li>Improved overall application performance and maintained highly reusable component libraries with [ADD METRIC]+ components.</li>
                   </ul>
+                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
+                    <span className={styles.techTag}>Vue.js</span>
+                    <span className={styles.techTag}>Tailwind CSS</span>
+                    <span className={styles.techTag}>JavaScript</span>
+                  </div>
                 </div>
               </motion.div>
 
@@ -584,10 +575,15 @@ export default function Home() {
                   <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Jona</span></h3>
                   <div className={styles.timelineDate}>USA (Remote) | 04/2022 - 11/2022</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Developed a high-performance Next.js web application for selling curated journalists lists.</li>
-                    <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system.</li>
-                    <li>Worked asynchronously with international teams, delivering features on strict deadlines.</li>
+                    <li>Developed a high-performance Next.js web application for selling curated journalists lists to [ADD METRIC]+ users.</li>
+                    <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system with [ADD METRIC]+ components.</li>
+                    <li>Worked asynchronously with international teams, delivering [ADD METRIC]+ features on strict deadlines.</li>
                   </ul>
+                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
+                    <span className={styles.techTag}>Next.js</span>
+                    <span className={styles.techTag}>React</span>
+                    <span className={styles.techTag}>MUI</span>
+                  </div>
                 </div>
               </motion.div>
 
@@ -598,9 +594,14 @@ export default function Home() {
                   <div className={styles.timelineDate}>Indore | 09/2021 - 03/2022</div>
                   <ul className={styles.projectWorkings}>
                     <li>Built a comprehensive recruitment management system using React.js.</li>
-                    <li>Implemented complex state management using Redux, handling vast amounts of candidate data.</li>
-                    <li>Designed features enabling organizations to streamline their hiring processes efficiently.</li>
+                    <li>Implemented complex state management using Redux, handling vast amounts of candidate data ([ADD METRIC]+ records).</li>
+                    <li>Designed features enabling organizations to streamline their hiring processes efficiently for [ADD METRIC]+ clients.</li>
                   </ul>
+                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
+                    <span className={styles.techTag}>React</span>
+                    <span className={styles.techTag}>Redux</span>
+                    <span className={styles.techTag}>JavaScript</span>
+                  </div>
                 </div>
               </motion.div>
 
@@ -610,9 +611,14 @@ export default function Home() {
                   <h3 className={styles.timelineRole}>Internship - Frontend Developer <span className="gradient-text">@ HemansAI</span></h3>
                   <div className={styles.timelineDate}>Indore | 01/2021 - 03/2021</div>
                   <ul className={styles.projectWorkings}>
-                    <li>Developed RTBAnalytica, a web app showcasing services and offerings using HTML, CSS, and JS.</li>
+                    <li>Developed RTBAnalytica, a web app showcasing [ADD METRIC]+ services and offerings using HTML, CSS, and JS.</li>
                     <li>Gained hands-on experience with Bootstrap for rapid responsive design prototyping.</li>
                   </ul>
+                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
+                    <span className={styles.techTag}>HTML/CSS</span>
+                    <span className={styles.techTag}>JavaScript</span>
+                    <span className={styles.techTag}>Bootstrap</span>
+                  </div>
                 </div>
               </motion.div>
 
@@ -820,7 +826,7 @@ export default function Home() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="glass-panel" style={{ maxWidth: "800px", margin: "0 auto" }}>
             <h2 className={styles.sectionTitle} style={{ marginBottom: "1rem" }}>Get In Touch</h2>
             <p style={{ color: "var(--text-secondary)", marginBottom: "3rem" }}>
-              Although I&apos;m currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
+              I&apos;m open to new opportunities. If you have a project or role in mind, I&apos;d love to hear from you.
             </p>
 
             {/* Success Banner */}

@@ -10,34 +10,34 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kirtikumar01.github.io"),
-  title: "Kirti Kumar Piplaj | Senior Frontend Developer",
+  title: "Kirti Kumar Piplaj | Frontend Engineer",
   description:
-    "Portfolio of Kirti Kumar Piplaj, a Senior Frontend Developer with 3+ years of experience specialized in ReactJS, NextJS, VueJS, and building premium web applications.",
+    "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
   keywords: [
     "Kirti Kumar Piplaj",
-    "Senior Frontend Developer",
-    "ReactJS",
-    "NextJS",
-    "Vuejs",
+    "Frontend Engineer",
+    "React",
+    "Next.js",
+    "Web3",
+    "Fintech",
     "Portfolio",
     "Web Developer",
-    "JavaScript",
     "TypeScript",
   ],
   authors: [{ name: "Kirti Kumar Piplaj" }],
   creator: "Kirti Kumar Piplaj",
   openGraph: {
-    title: "Kirti Kumar Piplaj | Senior Frontend Developer",
+    title: "Kirti Kumar Piplaj | Frontend Engineer",
     description:
-      "Portfolio of Kirti Kumar Piplaj, a Senior Frontend Developer with 3+ years of experience specialized in ReactJS, NextJS, VueJS, and building premium web applications.",
+      "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
     type: "website",
     locale: "en_US",
     siteName: "Kirti Kumar Piplaj Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kirti Kumar Piplaj | Senior Frontend Developer",
-    description: "Portfolio of Kirti Kumar Piplaj, a Senior Frontend Developer with 3+ years of experience.",
+    title: "Kirti Kumar Piplaj | Frontend Engineer",
+    description: "Portfolio of Kirti Kumar Piplaj, a Frontend Engineer with 3+ years of experience specialized in React, Next.js, and Web3 & Fintech Interfaces.",
   },
 };
 
