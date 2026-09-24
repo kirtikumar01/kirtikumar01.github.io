@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown } from "lucide-react";
+import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown, Sun, Moon, FileText } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import styles from "./page.module.css";
 import { useState, useEffect, useRef } from "react";
@@ -14,6 +14,23 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  };
+
+  // Init theme from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") as "dark" | "light" | null;
+    const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    const initial = stored ?? preferred;
+    setTheme(initial);
+    document.documentElement.setAttribute("data-theme", initial);
+  }, []);
 
   // Contact form state
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -262,6 +279,9 @@ export default function Home() {
             <div className={styles.navSocials}>
               <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="LinkedIn"><FaLinkedin size={18} /></a>
               <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.navSocialLink} aria-label="GitHub"><FaGithub size={18} /></a>
+              <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle theme">
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.navResumeBtn}>Resume</a>
             </div>
           </div>
@@ -300,15 +320,31 @@ export default function Home() {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </motion.a>
             ))}
-            <motion.div 
+            <motion.div
               className={styles.mobileNavSocials}
               initial={{ opacity: 0, y: 20 }}
               animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: mobileMenuOpen ? 5 * 0.08 + 0.1 : 0, duration: 0.3 }}
             >
-              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="LinkedIn"><FaLinkedin size={24} /></a>
-              <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="GitHub"><FaGithub size={24} /></a>
+              <a href="https://linkedin.com/in/kirti-kumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="LinkedIn"><FaLinkedin size={22} /></a>
+              <a href="https://github.com/kirtikumar01" target="_blank" rel="noreferrer" className={styles.mobileSocialLink} aria-label="GitHub"><FaGithub size={22} /></a>
+              <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle theme" style={{ marginLeft: "auto" }}>
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
             </motion.div>
+            <motion.a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mobileResumeBtn}
+              initial={{ opacity: 0, y: 20 }}
+              animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: mobileMenuOpen ? 5 * 0.08 + 0.2 : 0, duration: 0.3 }}
+              onClick={handleNavClick}
+            >
+              <FileText size={16} style={{ marginRight: "0.5rem" }} />
+              Download Resume
+            </motion.a>
           </div>
         </motion.div>
       </nav>
