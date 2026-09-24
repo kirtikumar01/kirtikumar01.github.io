@@ -631,6 +631,7 @@ export default function Home() {
               {/* House of Frac */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
@@ -669,6 +670,7 @@ export default function Home() {
               {/* Mera Astro */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible">
@@ -706,6 +708,7 @@ export default function Home() {
               {/* OCCSSG Portal */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/occssg.png" alt="OCCSSG Portal" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
@@ -767,6 +770,7 @@ export default function Home() {
               {/* MST Mint Portal & DAO */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
+                  <img src="/images/projects/mst-mint.png" alt="MST Mint Portal & DAO" className={styles.projectImage} style={{ objectPosition: "top" }} />
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
