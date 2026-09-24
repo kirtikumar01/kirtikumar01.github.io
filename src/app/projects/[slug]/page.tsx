@@ -18,7 +18,7 @@ const projectsData: Record<string, any> = {
   "house-of-frac": {
     draft: true,
     title: "House of Frac",
-    role: "[ADD ROLE]",
+    role: "Frontend Developer",
     overview: "An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks. It allows users to easily invest in fractional real estate assets.",
     techStack: ["React 19", "Redux", "Firebase", "GSAP", "Google Maps API"],
     keyChallenge: "[ADD KEY CHALLENGE]",
@@ -30,7 +30,7 @@ const projectsData: Record<string, any> = {
   "mera-astro": {
     draft: true,
     title: "Mera Astro",
-    role: "[ADD ROLE]",
+    role: "Frontend Developer",
     overview: "An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance.",
     techStack: ["React 19", "Vite", "MUI", "Zustand"],
     keyChallenge: "[ADD KEY CHALLENGE]",
@@ -42,7 +42,7 @@ const projectsData: Record<string, any> = {
   "bridgekey": {
     draft: true,
     title: "Bridgekey",
-    role: "[ADD ROLE]",
+    role: "Frontend Developer",
     overview: "An interactive platform tailored for the EVM ecosystem, enabling cross-chain balance viewing, token swaps, and asset bridging.",
     techStack: ["React", "Wagmi", "Viem", "Coinbase SDK", "TailwindCSS"],
     keyChallenge: "[ADD KEY CHALLENGE]",

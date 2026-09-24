@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
@@ -642,7 +643,7 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>House of Frac</h3>
-                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
                     <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Interactive map integration utilizing Google Maps API.</li>
@@ -657,7 +658,7 @@ export default function Home() {
                     </div>
                     {process.env.NODE_ENV !== "production" && (
                       <div style={{ marginTop: "1.5rem" }}>
-                      <a href="/projects/house-of-frac" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
+                      <Link href="/projects/house-of-frac" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</Link>
                     </div>
                     )}
                   </div>
@@ -679,7 +680,7 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Mera Astro</h3>
-                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
                     <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Robust frontend built with React 19 & Vite.</li>
@@ -694,7 +695,7 @@ export default function Home() {
                     </div>
                     {process.env.NODE_ENV !== "production" && (
                       <div style={{ marginTop: "1.5rem" }}>
-                      <a href="/projects/mera-astro" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
+                      <Link href="/projects/mera-astro" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</Link>
                     </div>
                     )}
                   </div>
@@ -713,6 +714,7 @@ export default function Home() {
                       <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> Full Stack Developer</p>
                     <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built on Next.js 16 with App Router and React 19.</li>
@@ -745,7 +747,7 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Bridgekey</h3>
-                    {process.env.NODE_ENV !== "production" && (<p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>)}
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
                     <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Dynamic React UI with optimized Webpack builds.</li>
@@ -773,6 +775,7 @@ export default function Home() {
                       <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
                     <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Next.js based decentralized application interface.</li>
@@ -801,6 +804,7 @@ export default function Home() {
                       <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>Chain Pay</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
                     <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
