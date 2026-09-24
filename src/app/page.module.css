@@ -623,10 +623,23 @@
   color: #fff;
 }
 
+.projectLinks {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .projectTitle {
   font-size: 1.4rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.25rem;
   color: #fff;
+}
+
+.projectRole {
+  font-size: 0.9rem;
+  color: var(--accent-1);
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .projectDesc {

@@ -652,9 +652,14 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
                         <Layout className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        {/* TODO: Replace staging URL with production URL */}
+                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>House of Frac</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Interactive map integration utilizing Google Maps API.</li>
@@ -666,6 +671,9 @@ export default function Home() {
                       <span className={styles.techTag}>Redux</span>
                       <span className={styles.techTag}>Firebase</span>
                       <span className={styles.techTag}>GSAP</span>
+                    </div>
+                    <div style={{ marginTop: "1.5rem" }}>
+                      <a href="/projects/house-of-frac" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
                     </div>
                   </div>
                 </TiltCard>
@@ -680,9 +688,13 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible">
                         <Database className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>Mera Astro</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Robust frontend built with React 19 & Vite.</li>
@@ -694,6 +706,9 @@ export default function Home() {
                       <span className={styles.techTag}>Vite</span>
                       <span className={styles.techTag}>MUI</span>
                       <span className={styles.techTag}>Zustand</span>
+                    </div>
+                    <div style={{ marginTop: "1.5rem" }}>
+                      <a href="/projects/mera-astro" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
                     </div>
                   </div>
                 </TiltCard>
@@ -707,9 +722,13 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
                         <Layout className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built on Next.js 16 with App Router and React 19.</li>
@@ -735,9 +754,13 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
                         <Code2 className={styles.projectIcon} size={28} />
                       </motion.div>
-                      <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>Bridgekey</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Dynamic React UI with optimized Webpack builds.</li>
@@ -763,9 +786,13 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
                         <Code2 className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Next.js based decentralized application interface.</li>
@@ -777,6 +804,9 @@ export default function Home() {
                       <span className={styles.techTag}>Framer Motion</span>
                       <span className={styles.techTag}>TailwindCSS v4</span>
                       <span className={styles.techTag}>Zod</span>
+                    </div>
+                    <div style={{ marginTop: "1.5rem" }}>
+                      <a href="/projects/mst-mint-portal" className="btn-secondary" style={{ display: "inline-block", fontSize: "0.9rem", padding: "0.5rem 1rem" }}>View case study</a>
                     </div>
                   </div>
                 </TiltCard>
@@ -790,9 +820,13 @@ export default function Home() {
                       <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
                         <Database className={styles.projectIcon} size={36} />
                       </motion.div>
-                      <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink}><ExternalLink size={20} /></a>
+                      <div className={styles.projectLinks}>
+                        <a href="https://github.com/[ADD REPO]" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="GitHub Repository"><FaGithub size={20} /></a>
+                        <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} title="Live Site"><ExternalLink size={20} /></a>
+                      </div>
                     </div>
                     <h3 className={styles.projectTitle}>Chain Pay</h3>
+                    <p className={styles.projectRole}><strong>Role:</strong> [ADD ROLE]</p>
                     <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
