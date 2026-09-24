@@ -114,12 +114,28 @@ img {
 }
 
 /* ============================================================
-   LAYOUT
+   LAYOUT — single source of truth
    ============================================================ */
+:root {
+  --site-max-width: 1280px;
+  --site-pad-x: 2rem;       /* desktop horizontal padding  */
+  --site-pad-x-sm: 1.25rem; /* mobile  horizontal padding  */
+}
+
 .container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  width: 100%;
+  max-width: var(--site-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-pad-x);
+  padding-right: var(--site-pad-x);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--site-pad-x-sm);
+    padding-right: var(--site-pad-x-sm);
+  }
 }
 
 /* ============================================================

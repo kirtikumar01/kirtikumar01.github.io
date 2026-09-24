@@ -3,7 +3,9 @@
    ============================================================ */
 .pageWrapper {
   min-height: 100vh;
-  padding: 5rem 0 4rem;
+  /* No extra horizontal padding here — .container in globals handles it */
+  padding-top: 5rem;
+  padding-bottom: 4rem;
   display: flex;
   flex-direction: column;
   gap: 6rem;
@@ -57,9 +59,13 @@
 }
 
 .navContainer {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  /* Matches .container token exactly */
+  width: 100%;
+  max-width: var(--site-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-pad-x);
+  padding-right: var(--site-pad-x);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -141,6 +147,25 @@
   transform: translateY(-2px);
 }
 
+/* Theme toggle — styled identically to .navSocialLink */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 0;
+}
+
+.themeToggle:hover {
+  color: var(--accent-1);
+  transform: translateY(-2px);
+}
+
 .navResumeBtn {
   display: inline-flex;
   align-items: center;
@@ -160,7 +185,6 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   opacity: 0.9;
 }
-
 /* Hamburger */
 .hamburger {
   display: none;
@@ -379,11 +403,12 @@
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 5rem 1.5rem 3rem;
+  /* No padding-x here — .container in globals already handles it */
+  padding-top: 3rem;
+  padding-bottom: 4rem;
   gap: 3rem;
   position: relative;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
@@ -539,13 +564,13 @@
    ABOUT
    ============================================================ */
 .aboutContainer {
-  max-width: 1240px;
+  /* full width inside .container — no extra horizontal padding needed */
   margin: 3rem auto 0;
-  padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  width: 100%;
 }
 
 .aboutText {
@@ -609,9 +634,8 @@
    SKILLS
    ============================================================ */
 .skillsContainer {
-  max-width: 1240px;
   margin: 5rem auto 0;
-  padding: 0 1.5rem;
+  width: 100%;
 }
 
 .skillsContainer h3 {
@@ -679,9 +703,10 @@
    ============================================================ */
 .timeline {
   position: relative;
-  max-width: 1000px;
+  max-width: 960px;
   margin: 4rem auto 0;
   padding: 1rem 0;
+  width: 100%;
 }
 
 .timeline::before {
@@ -943,7 +968,7 @@
    CONTACT FORM
    ============================================================ */
 .contactSection {
-  padding: 0 1.5rem;
+  /* inherits .container padding — no extra x-padding needed */
 }
 
 .contactForm {
@@ -1116,13 +1141,17 @@
   font-size: 0.88rem;
 }
 
-/* ============================================================
-   RESPONSIVE: ≤ 768px
-   ============================================================ */
 @media (max-width: 768px) {
   .pageWrapper {
-    gap: 5rem;
-    padding: 4rem 0 3rem;
+    gap: 4.5rem;
+    /* No horizontal padding — .container in globals handles it */
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .navContainer {
+    padding-left: var(--site-pad-x-sm);
+    padding-right: var(--site-pad-x-sm);
   }
 
   .navLinks {
@@ -1144,7 +1173,9 @@
 
   .hero {
     min-height: 80vh;
-    padding: 4rem 1.25rem 2.5rem;
+    /* Let .container handle horizontal padding, only adjust vertical */
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
     text-align: center;
   }
 
@@ -1165,19 +1196,20 @@
   }
 
   .heroImageContainer {
-    max-width: 280px;
+    max-width: 260px;
   }
 
   .scrollIndicator {
-    bottom: 1rem;
+    bottom: 0.5rem;
   }
 
+  /* aboutContainer and skillsContainer inherit .container padding — no override needed */
   .aboutContainer {
-    padding: 0 1.25rem;
+    padding: 0;
   }
 
   .skillsContainer {
-    padding: 0 1.25rem;
+    padding: 0;
   }
 
   .formGroup {
