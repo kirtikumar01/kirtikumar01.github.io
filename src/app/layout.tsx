@@ -46,6 +46,7 @@ export const metadata: Metadata = {
 
 import SmoothScroll from "../components/SmoothScroll";
 import CanvasParticles from "../components/CanvasParticles";
+import PageLoader from "../components/PageLoader";
 
 export default function RootLayout({
   children,
@@ -103,6 +104,7 @@ export default function RootLayout({
         )}
       </head>
       <body>
+        <PageLoader />
         <CanvasParticles />
         <SmoothScroll>
           <main className="app-wrapper">{children}</main>
