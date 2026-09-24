@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown, Sun, Moon, FileText } from "lucide-react";
+import { Mail, Phone, ExternalLink, Code2, Database, Layout, Terminal, Sparkles, Gamepad2, Tv, Bot, ChevronDown, Sun, Moon, FileText, Briefcase, Calendar } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import styles from "./page.module.css";
 import { useState, useEffect, useRef } from "react";
@@ -254,6 +254,13 @@ export default function Home() {
     }
   };
 
+
+  // Timeline scroll progress
+  const { scrollYProgress: experienceProgress } = useScroll({
+    target: experienceRef,
+    offset: ["start center", "end 80%"]
+  });
+  const lineHeight = useTransform(experienceProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <>
@@ -554,100 +561,143 @@ export default function Home() {
         </section>
 
         {/* Experience Section */}
-        <section id="experience" className={styles.section}>
+        <section id="experience" className={styles.section} ref={experienceRef}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
             <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>Where I&apos;ve Worked</motion.h2>
-            <div className={styles.timeline} ref={experienceRef}>
-              <motion.div className={styles.timelineBubble} style={{ top: bubbleY }} />
+            <p className={styles.sectionSubtitle}>A timeline of my professional journey and the impact I&apos;ve made.</p>
+            
+            <div className={styles.timeline}>
+              {/* The glowing progress line */}
+              <motion.div className={styles.timelineProgress} style={{ height: lineHeight }} />
 
-              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
-                <div className={styles.timelineDot}></div>
-                <div className={`glass-panel ${styles.timelineContent}`}>
-                  <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Codes for Tomorrow (CFT)</span></h3>
-                  <div className={styles.timelineDate}>Indore, India | 08/2025 - Present</div>
-                  <ul className={styles.projectWorkings}>
-                    {process.env.NODE_ENV !== "production" && <li>Build and maintain production-grade frontend applications across [ADD METRIC] Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>}
-                    <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development, shipping features end-to-end without UI designs.</li>
-                  </ul>
-                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>Next.js</span>
-                    <span className={styles.techTag}>TypeScript</span>
-                    <span className={styles.techTag}>Web3</span>
-                  </div>
-                </div>
-              </motion.div>
+              {/* CFT */}
+              <div className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
+                <motion.div className={styles.timelineIcon} style={{ scale: useTransform(experienceProgress, [0, 0.2], [0.5, 1]) }}>
+                  <Briefcase size={20} />
+                </motion.div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.timelineCard}>
+                    <div className={styles.timelineCardHeader}>
+                      <h3 className={styles.timelineRole}>Frontend Developer</h3>
+                      <h4 className={styles.timelineCompany}>@ Codes for Tomorrow (CFT)</h4>
+                    </div>
+                    <div className={styles.timelineDate}><Calendar size={14} /> Indore, India | 08/2025 - Present</div>
+                    <ul className={styles.projectWorkings}>
+                      {process.env.NODE_ENV !== "production" && <li>Build and maintain production-grade frontend applications across [ADD METRIC] Web3, fintech, and astrology domains using React, Next.js, and TypeScript.</li>}
+                      <li>Leverage Antigravity AI IDE and prompt engineering for AI-assisted development, shipping features end-to-end without UI designs.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>TypeScript</span>
+                      <span className={styles.techTag}>Web3</span>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              </div>
 
-              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
-                <div className={styles.timelineDot}></div>
-                <div className={`glass-panel ${styles.timelineContent}`}>
-                  <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Web Impact Software Solutions</span></h3>
-                  <div className={styles.timelineDate}>Indore | 09/2023 - 07/2024</div>
-                  <ul className={styles.projectWorkings}>
-                    <li>Spearheaded the development of the core product utilizing Vue.js and Tailwind CSS.</li>
-                    {process.env.NODE_ENV !== "production" && <li>Collaborated with design teams to ensure pixel-perfect implementation of [ADD METRIC]+ UI mockups.</li>}
-                    {process.env.NODE_ENV !== "production" && <li>Improved overall application performance and maintained highly reusable component libraries with [ADD METRIC]+ components.</li>}
-                  </ul>
-                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
-                    <span className={styles.techTag}>Vue.js</span>
-                    <span className={styles.techTag}>Tailwind CSS</span>
-                    <span className={styles.techTag}>JavaScript</span>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Web Impact */}
+              <div className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
+                <motion.div className={styles.timelineIcon} style={{ scale: useTransform(experienceProgress, [0.2, 0.4], [0.5, 1]) }}>
+                  <Briefcase size={20} />
+                </motion.div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.timelineCard}>
+                    <div className={styles.timelineCardHeader}>
+                      <h3 className={styles.timelineRole}>Frontend Developer</h3>
+                      <h4 className={styles.timelineCompany}>@ Web Impact Software Solutions</h4>
+                    </div>
+                    <div className={styles.timelineDate}><Calendar size={14} /> Indore | 09/2023 - 07/2024</div>
+                    <ul className={styles.projectWorkings}>
+                      <li>Spearheaded the development of the core product utilizing Vue.js and Tailwind CSS.</li>
+                      {process.env.NODE_ENV !== "production" && <li>Collaborated with design teams to ensure pixel-perfect implementation of [ADD METRIC]+ UI mockups.</li>}
+                      {process.env.NODE_ENV !== "production" && <li>Improved overall application performance and maintained highly reusable component libraries with [ADD METRIC]+ components.</li>}
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Vue.js</span>
+                      <span className={styles.techTag}>Tailwind CSS</span>
+                      <span className={styles.techTag}>JavaScript</span>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              </div>
 
-              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
-                <div className={styles.timelineDot}></div>
-                <div className={`glass-panel ${styles.timelineContent}`}>
-                  <h3 className={styles.timelineRole}>Frontend Developer <span className="gradient-text">@ Jona</span></h3>
-                  <div className={styles.timelineDate}>USA (Remote) | 04/2022 - 11/2022</div>
-                  <ul className={styles.projectWorkings}>
-                    {process.env.NODE_ENV !== "production" && <li>Developed a high-performance Next.js web application for selling curated journalists lists to [ADD METRIC]+ users.</li>}
-                    {process.env.NODE_ENV !== "production" && <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system with [ADD METRIC]+ components.</li>}
-                    {process.env.NODE_ENV !== "production" && <li>Worked asynchronously with international teams, delivering [ADD METRIC]+ features on strict deadlines.</li>}
-                  </ul>
-                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
-                    <span className={styles.techTag}>Next.js</span>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>MUI</span>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Jona */}
+              <div className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
+                <motion.div className={styles.timelineIcon} style={{ scale: useTransform(experienceProgress, [0.4, 0.6], [0.5, 1]) }}>
+                  <Briefcase size={20} />
+                </motion.div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.timelineCard}>
+                    <div className={styles.timelineCardHeader}>
+                      <h3 className={styles.timelineRole}>Frontend Developer</h3>
+                      <h4 className={styles.timelineCompany}>@ Jona</h4>
+                    </div>
+                    <div className={styles.timelineDate}><Calendar size={14} /> USA (Remote) | 04/2022 - 11/2022</div>
+                    <ul className={styles.projectWorkings}>
+                      {process.env.NODE_ENV !== "production" && <li>Developed a high-performance Next.js web application for selling curated journalists lists to [ADD METRIC]+ users.</li>}
+                      {process.env.NODE_ENV !== "production" && <li>Integrated Material UI (MUI) to rapidly build a consistent and accessible design system with [ADD METRIC]+ components.</li>}
+                      {process.env.NODE_ENV !== "production" && <li>Worked asynchronously with international teams, delivering [ADD METRIC]+ features on strict deadlines.</li>}
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>Next.js</span>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>MUI</span>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              </div>
 
-              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
-                <div className={styles.timelineDot}></div>
-                <div className={`glass-panel ${styles.timelineContent}`}>
-                  <h3 className={styles.timelineRole}>Software Engineer <span className="gradient-text">@ Bellurbis Technologies</span></h3>
-                  <div className={styles.timelineDate}>Indore | 09/2021 - 03/2022</div>
-                  <ul className={styles.projectWorkings}>
-                    <li>Built a comprehensive recruitment management system using React.js.</li>
-                    {process.env.NODE_ENV !== "production" && <li>Implemented complex state management using Redux, handling vast amounts of candidate data ([ADD METRIC]+ records).</li>}
-                    {process.env.NODE_ENV !== "production" && <li>Designed features enabling organizations to streamline their hiring processes efficiently for [ADD METRIC]+ clients.</li>}
-                  </ul>
-                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
-                    <span className={styles.techTag}>React</span>
-                    <span className={styles.techTag}>Redux</span>
-                    <span className={styles.techTag}>JavaScript</span>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Bellurbis */}
+              <div className={`${styles.timelineBlock} ${styles.timelineBlockRight}`}>
+                <motion.div className={styles.timelineIcon} style={{ scale: useTransform(experienceProgress, [0.6, 0.8], [0.5, 1]) }}>
+                  <Briefcase size={20} />
+                </motion.div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.timelineCard}>
+                    <div className={styles.timelineCardHeader}>
+                      <h3 className={styles.timelineRole}>Software Engineer</h3>
+                      <h4 className={styles.timelineCompany}>@ Bellurbis Technologies</h4>
+                    </div>
+                    <div className={styles.timelineDate}><Calendar size={14} /> Indore | 09/2021 - 03/2022</div>
+                    <ul className={styles.projectWorkings}>
+                      <li>Built a comprehensive recruitment management system using React.js.</li>
+                      {process.env.NODE_ENV !== "production" && <li>Implemented complex state management using Redux, handling vast amounts of candidate data ([ADD METRIC]+ records).</li>}
+                      {process.env.NODE_ENV !== "production" && <li>Designed features enabling organizations to streamline their hiring processes efficiently for [ADD METRIC]+ clients.</li>}
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>JavaScript</span>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              </div>
 
-              <motion.div variants={fadeIn} className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
-                <div className={styles.timelineDot}></div>
-                <div className={`glass-panel ${styles.timelineContent}`}>
-                  <h3 className={styles.timelineRole}>Internship - Frontend Developer <span className="gradient-text">@ HemansAI</span></h3>
-                  <div className={styles.timelineDate}>Indore | 01/2021 - 03/2021</div>
-                  <ul className={styles.projectWorkings}>
-                    {process.env.NODE_ENV !== "production" && <li>Developed RTBAnalytica, a web app showcasing [ADD METRIC]+ services and offerings using HTML, CSS, and JS.</li>}
-                    <li>Gained hands-on experience with Bootstrap for rapid responsive design prototyping.</li>
-                  </ul>
-                  <div className={styles.projectTechStack} style={{ marginTop: "1rem" }}>
-                    <span className={styles.techTag}>HTML/CSS</span>
-                    <span className={styles.techTag}>JavaScript</span>
-                    <span className={styles.techTag}>Bootstrap</span>
-                  </div>
-                </div>
-              </motion.div>
+              {/* HemansAI */}
+              <div className={`${styles.timelineBlock} ${styles.timelineBlockLeft}`}>
+                <motion.div className={styles.timelineIcon} style={{ scale: useTransform(experienceProgress, [0.8, 1], [0.5, 1]) }}>
+                  <Sparkles size={20} />
+                </motion.div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.timelineCard}>
+                    <div className={styles.timelineCardHeader}>
+                      <h3 className={styles.timelineRole}>Frontend Developer Intern</h3>
+                      <h4 className={styles.timelineCompany}>@ HemansAI</h4>
+                    </div>
+                    <div className={styles.timelineDate}><Calendar size={14} /> Indore | 01/2021 - 03/2021</div>
+                    <ul className={styles.projectWorkings}>
+                      {process.env.NODE_ENV !== "production" && <li>Developed RTBAnalytica, a web app showcasing [ADD METRIC]+ services and offerings using HTML, CSS, and JS.</li>}
+                      <li>Gained hands-on experience with Bootstrap for rapid responsive design prototyping.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>HTML/CSS</span>
+                      <span className={styles.techTag}>JavaScript</span>
+                      <span className={styles.techTag}>Bootstrap</span>
+                    </div>
+                  </TiltCard>
+                </motion.div>
+              </div>
 
             </div>
           </motion.div>
@@ -661,20 +711,96 @@ export default function Home() {
 
             <div className={styles.projectsGrid}>
 
+              {/* House of Frac */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
+                        <Layout className={styles.projectIcon} size={32} />
+                      </motion.div>
+                      <div className={styles.projectLinks}>
+                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
+                      </div>
+                    </div>
+                    <h3 className={styles.projectTitle}>House of Frac</h3>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Frontend Developer</span>
+                    </div>
+                    <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Interactive map integration utilizing Google Maps API.</li>
+                      <li>Real-time socket connections with Socket.io-client & Firebase.</li>
+                      <li>State of the art animations via GSAP and Framer Motion.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Redux</span>
+                      <span className={styles.techTag}>Firebase</span>
+                      <span className={styles.techTag}>GSAP</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
+
+              {/* Mera Astro */}
+              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <TiltCard className={styles.projectCard}>
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
+                        <Database className={styles.projectIcon} size={32} />
+                      </motion.div>
+                      <div className={styles.projectLinks}>
+                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
+                      </div>
+                    </div>
+                    <h3 className={styles.projectTitle}>Mera Astro</h3>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Frontend Developer</span>
+                    </div>
+                    <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
+                    <ul className={styles.projectWorkings}>
+                      <li>Robust frontend built with React 19 & Vite.</li>
+                      <li>Utilized Material UI (MUI) for accessible components.</li>
+                      <li>Advanced form handling and global state via Zustand.</li>
+                    </ul>
+                    <div className={styles.projectTechStack}>
+                      <span className={styles.techTag}>React 19</span>
+                      <span className={styles.techTag}>Vite</span>
+                      <span className={styles.techTag}>MUI</span>
+                      <span className={styles.techTag}>Zustand</span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
 
               {/* OCCSSG Portal */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/occssg.png" alt="OCCSSG Portal" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/occssg.png" alt="OCCSSG Portal" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.2s" }}>
-                        <Layout className={styles.projectIcon} size={36} />
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
+                        <Layout className={styles.projectIcon} size={32} />
                       </motion.div>
                       <a href="https://occssg.org/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>OCCSSG Portal</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Full Stack Developer</p>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Full Stack Developer</span>
+                    </div>
                     <p className={styles.projectDesc}>A highly robust full-stack Next.js portal featuring community engagement, research publications, and events tracking. Includes a custom CMS admin panel, a user panel, and a NestJS server for APIs. Admins can post events, while users can join them and get tickets seamlessly.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built on Next.js 16 with App Router and React 19.</li>
@@ -691,89 +817,26 @@ export default function Home() {
                 </TiltCard>
               </motion.div>
 
-
-              {/* House of Frac */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/house-of-frac.png" alt="House of Frac" className={styles.projectImage} style={{ objectPosition: "top" }} />
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
-                        <Layout className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        {/* TODO: Replace staging URL with production URL */}
-                        <a href="https://staging.houseoffrac.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>House of Frac</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
-                    <p className={styles.projectDesc}>An admin and frontend portal built for fractional ownership and seamless management, utilizing modern web frameworks.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Interactive map integration utilizing Google Maps API.</li>
-                      <li>Real-time socket connections with Socket.io-client & Firebase.</li>
-                      <li>State of the art animations via GSAP and Framer Motion.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>React 19</span>
-                      <span className={styles.techTag}>Redux</span>
-                      <span className={styles.techTag}>Firebase</span>
-                      <span className={styles.techTag}>GSAP</span>
-                    </div>
-                    
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-
-              {/* Mera Astro */}
-              <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/mera-astro.png" alt="Mera Astro" className={styles.projectImage} style={{ objectPosition: "top" }} />
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible">
-                        <Database className={styles.projectIcon} size={36} />
-                      </motion.div>
-                      <div className={styles.projectLinks}>
-                        <a href="https://meraastro.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
-                      </div>
-                    </div>
-                    <h3 className={styles.projectTitle}>Mera Astro</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
-                    <p className={styles.projectDesc}>An astrology platform bringing together rich user experiences, daily predictions, and specialized features tailored for users seeking astrological guidance. Features an intelligent AI chatbot to guide users through astrological consultations.</p>
-                    <ul className={styles.projectWorkings}>
-                      <li>Robust frontend built with React 19 & Vite.</li>
-                      <li>Utilized Material UI (MUI) for accessible components.</li>
-                      <li>Advanced form handling and global state via Zustand.</li>
-                    </ul>
-                    <div className={styles.projectTechStack}>
-                      <span className={styles.techTag}>React 19</span>
-                      <span className={styles.techTag}>Vite</span>
-                      <span className={styles.techTag}>MUI</span>
-                      <span className={styles.techTag}>Zustand</span>
-                    </div>
-                    
-                  </div>
-                </TiltCard>
-              </motion.div>
-
-
               {/* Bridgekey */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/bridgekey.png" alt="Bridgekey" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
-                        <Code2 className={styles.projectIcon} size={28} />
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.8s" }}>
+                        <Code2 className={styles.projectIcon} size={32} />
                       </motion.div>
                       <div className={styles.projectLinks}>
                         <a href="https://portfolio.bridgekey.io/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                       </div>
                     </div>
                     <h3 className={styles.projectTitle}>Bridgekey</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Frontend Developer</span>
+                    </div>
                     <p className={styles.projectDesc}>An interactive platform tailored for the Solana ecosystem, enabling seamless token connections and community engagement.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Dynamic React UI with optimized Webpack builds.</li>
@@ -789,20 +852,24 @@ export default function Home() {
                 </TiltCard>
               </motion.div>
 
-
               {/* MST Mint Portal & DAO */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/mst-mint.png" alt="MST Mint Portal & DAO" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/mst-mint.png" alt="MST Mint Portal & DAO" className={styles.projectImage} style={{ objectPosition: "top" }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.4s" }}>
-                        <Code2 className={styles.projectIcon} size={36} />
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "1.0s" }}>
+                        <Code2 className={styles.projectIcon} size={32} />
                       </motion.div>
                       <a href="https://dao.mstblockchain.com/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>MST Mint Portal & DAO</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Frontend Developer</span>
+                    </div>
                     <p className={styles.projectDesc}>A decentralized Web3 platform interface enabling secure token minting, DAO interactions, and governance.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Next.js based decentralized application interface.</li>
@@ -819,20 +886,24 @@ export default function Home() {
                 </TiltCard>
               </motion.div>
 
-
               {/* Chain Pay */}
               <motion.div variants={fadeIn} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <TiltCard className={styles.projectCard}>
-                  <img loading="lazy" src="/images/projects/chain-pay.png" alt="Chain Pay" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                  <div className={styles.imageWrapper}>
+                    <img loading="lazy" src="/images/projects/chain-pay.png" alt="Chain Pay" className={styles.projectImage} style={{ objectPosition: 'top' }} />
+                    <div className={styles.imageOverlay}></div>
+                  </div>
                   <div className={styles.projectContent}>
                     <div className={styles.projectHeader}>
-                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "0.6s" }}>
-                        <Database className={styles.projectIcon} size={36} />
+                      <motion.div variants={floatAnimation} initial="hidden" animate="visible" style={{ animationDelay: "1.2s" }}>
+                        <Database className={styles.projectIcon} size={32} />
                       </motion.div>
                       <a href="https://chainpay.biz/" target="_blank" rel="noopener noreferrer" className={styles.projectLink} aria-label="Live Site"><ExternalLink size={20} /></a>
                     </div>
                     <h3 className={styles.projectTitle}>Chain Pay</h3>
-                    <p className={styles.projectRole}><strong>Role:</strong> Frontend Developer</p>
+                    <div className={styles.roleContainer}>
+                      <span className={styles.roleBadge}>Frontend Developer</span>
+                    </div>
                     <p className={styles.projectDesc}>A comprehensive merchant and admin application for managing blockchain-based payments efficiently.</p>
                     <ul className={styles.projectWorkings}>
                       <li>Built heavily dynamic interfaces using React and Redux Toolkit.</li>
@@ -848,12 +919,10 @@ export default function Home() {
                   </div>
                 </TiltCard>
               </motion.div>
-
             </div>
           </motion.div>
         </section>
 
-        
         {/* Contact Section */}
         <section id="contact" className={`${styles.section} ${styles.contactSection}`}>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="glass-panel" style={{ maxWidth: "800px", margin: "0 auto" }}>

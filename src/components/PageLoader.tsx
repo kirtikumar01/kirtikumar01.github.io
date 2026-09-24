@@ -61,7 +61,7 @@ export default function PageLoader() {
                 width="512"
                 height="512"
                 rx="128"
-                fill="#0A0A0A"
+                fill="var(--surface)"
                 stroke="url(#loader_grad)"
                 strokeWidth="2"
               />
