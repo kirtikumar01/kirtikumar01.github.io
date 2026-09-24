@@ -52,19 +52,16 @@ export default function PageLoader() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {/* Box/Background of Logo */}
-              <motion.rect
+              <rect
                 width="512"
                 height="512"
                 rx="128"
                 fill="#0A0A0A"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
                 stroke="url(#loader_grad)"
                 strokeWidth="2"
               />
@@ -78,7 +75,7 @@ export default function PageLoader() {
                 strokeLinejoin="round"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
+                transition={{ duration: 1, ease: "easeInOut" }}
               />
               
               {/* P Path */}
@@ -90,7 +87,7 @@ export default function PageLoader() {
                 strokeLinejoin="round"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1, ease: "easeInOut", delay: 0.4 }}
+                transition={{ duration: 1, ease: "easeInOut", delay: 0.15 }}
               />
 
               <defs>
@@ -111,9 +108,9 @@ export default function PageLoader() {
             
             <motion.div 
               className={styles.brandName}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             >
               Kirti Kumar Piplaj
             </motion.div>
