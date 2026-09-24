@@ -1,5 +1,5 @@
 /* ============================================================
-   PAGE LOADER OVERLAY
+   PREMIUM PAGE LOADER OVERLAY
    ============================================================ */
 
 .overlay {
@@ -10,218 +10,62 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  background: #000319;
-  /* subtle radial gradient for depth */
-  background-image: radial-gradient(
-    ellipse 60% 50% at 50% 50%,
-    rgba(59, 130, 246, 0.06) 0%,
-    transparent 70%
-  );
+  background: #000319; /* Deep dark background */
   overflow: hidden;
+  pointer-events: all;
+  /* Subtly textured background */
+  background-image: 
+    radial-gradient(ellipse at 50% -20%, rgba(120, 119, 198, 0.15), transparent 60%),
+    radial-gradient(ellipse at 50% 120%, rgba(59, 130, 246, 0.15), transparent 60%);
 }
 
-/* Ambient background glow */
 .ambientGlow {
   position: absolute;
-  width: min(480px, 90vw);
-  height: min(480px, 90vw);
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.12) 0%,
-    rgba(59, 130, 246, 0.06) 45%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
   pointer-events: none;
-  animation: ambientPulse 3s ease-in-out infinite;
+  animation: pulse 4s ease-in-out infinite alternate;
+  filter: blur(40px);
 }
 
-@keyframes ambientPulse {
-  0%, 100% { transform: scale(1);   opacity: 0.7; }
-  50%       { transform: scale(1.1); opacity: 1;   }
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.1); opacity: 1; }
 }
 
-/* ============================================================
-   ICON
-   ============================================================ */
-.iconWrapper {
-  position: relative;
-  width: 140px;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Spinning conic-gradient ring */
-.spinRing {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    #3b82f6 20%,
-    #8b5cf6 50%,
-    #ec4899 75%,
-    transparent 100%
-  );
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 3.5px),
-    #fff calc(100% - 3.5px)
-  );
-  mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 3.5px),
-    #fff calc(100% - 3.5px)
-  );
-}
-
-/* Pulse glow */
-.pulseRing {
-  position: absolute;
-  inset: -10px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.35) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-/* Icon SVG container */
-.iconSvg {
+.logoContainer {
   position: relative;
   z-index: 2;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 22px;
-  background: #0d0d1a;
-  box-shadow:
-    0 0 0 1px rgba(139, 92, 246, 0.25),
-    0 8px 32px rgba(0, 0, 0, 0.6);
+  gap: 1.5rem;
 }
 
-.iconSvg svg {
-  width: 72px;
-  height: 72px;
-}
-
-/* ============================================================
-   PERCENTAGE COUNTER
-   ============================================================ */
-.percentWrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-  line-height: 1;
-}
-
-.percentNumber {
+.brandName {
   font-family: "Outfit", "Inter", sans-serif;
-  font-size: clamp(3.5rem, 10vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* tabular nums so it doesn't jump */
-  font-variant-numeric: tabular-nums;
-  min-width: 3ch;
-  text-align: right;
-  /* Smooth number changes */
-  transition: none;
+  opacity: 0.9;
 }
 
-.percentSymbol {
-  font-family: "Outfit", "Inter", sans-serif;
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.35);
-}
-
-/* ============================================================
-   PROGRESS BAR
-   ============================================================ */
-.progressTrack {
-  width: min(320px, 70vw);
-  height: 3px;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 99px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
-  /* shimmer */
-  position: relative;
-  overflow: hidden;
-}
-
-.progressFill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
-    transparent 100%
-  );
-  animation: shimmer 1.4s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-/* ============================================================
-   TAGLINE
-   ============================================================ */
-.tagline {
-  font-family: "Outfit", "Inter", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.45);
-  text-transform: uppercase;
-  margin: 0;
-  user-select: none;
-}
-
-/* ============================================================
-   RESPONSIVE TWEAKS
-   ============================================================ */
 @media (max-width: 480px) {
-  .iconWrapper {
-    width: 110px;
-    height: 110px;
+  .logoContainer svg {
+    width: 80px;
+    height: 80px;
   }
-
-  .iconSvg {
-    width: 78px;
-    height: 78px;
-    border-radius: 18px;
-  }
-
-  .iconSvg svg {
-    width: 56px;
-    height: 56px;
-  }
-
-  .progressTrack {
-    width: min(260px, 80vw);
+  .brandName {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
   }
 }
