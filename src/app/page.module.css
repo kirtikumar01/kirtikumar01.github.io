@@ -679,12 +679,6 @@
   transition: var(--transition);
 }
 
-.skillCategory:hover {
-  background: var(--surface-hover);
-  border-color: rgba(0, 229, 255, 0.25);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px -8px rgba(0, 229, 255, 0.12);
-}
 
 .skillCategory h4 {
   display: flex;
@@ -711,7 +705,7 @@
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-secondary);
-  cursor: grab;
+  cursor: default;
   transition: var(--transition);
 }
 

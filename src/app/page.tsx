@@ -509,95 +509,90 @@ export default function Home() {
             <div className={styles.skillsContainer}>
               <h3 className={styles.sectionTitle}>Technical Arsenal</h3>
               <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className={styles.skillsGrid}>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Layout size={18} className="gradient-text" /> Core Frontend</h4>
-                  <div className={styles.skillsList}>
-                    {["React.js", "Next.js", "TypeScript", "JavaScript", "Vue.js", "HTML5/CSS3"].map(skill => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.skillCategory}>
+                    <h4><Layout size={18} className="gradient-text" /> Core Frontend</h4>
+                    <div className={styles.skillsList}>
+                      {["React.js", "Next.js", "TypeScript", "JavaScript", "Vue.js", "HTML5/CSS3"].map(skill => (
+                        <motion.span
+                          key={skill}
+                          className={styles.skillBadge}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </TiltCard>
                 </motion.div>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Database size={18} className="gradient-text" /> State & Data</h4>
-                  <div className={styles.skillsList}>
-                    {["Redux Toolkit", "Zustand", "TanStack Query", "React Hook Form", "Zod"].map(skill => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.skillCategory}>
+                    <h4><Database size={18} className="gradient-text" /> State & Data</h4>
+                    <div className={styles.skillsList}>
+                      {["Redux Toolkit", "Zustand", "TanStack Query", "React Hook Form", "Zod"].map(skill => (
+                        <motion.span
+                          key={skill}
+                          className={styles.skillBadge}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </TiltCard>
                 </motion.div>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Code2 size={18} className="gradient-text" /> Styling & UI</h4>
-                  <div className={styles.skillsList}>
-                    {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI", "Radix UI"].map(skill => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.skillCategory}>
+                    <h4><Code2 size={18} className="gradient-text" /> Styling & UI</h4>
+                    <div className={styles.skillsList}>
+                      {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI", "Radix UI"].map(skill => (
+                        <motion.span
+                          key={skill}
+                          className={styles.skillBadge}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </TiltCard>
                 </motion.div>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Sparkles size={18} className="gradient-text" /> Web3</h4>
-                  <div className={styles.skillsList}>
-                    {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect", "Coinbase Wallet"].map(skill => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.skillCategory}>
+                    <h4><Sparkles size={18} className="gradient-text" /> Web3</h4>
+                    <div className={styles.skillsList}>
+                      {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect", "Coinbase Wallet"].map(skill => (
+                        <motion.span
+                          key={skill}
+                          className={styles.skillBadge}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </TiltCard>
                 </motion.div>
-                <motion.div variants={fadeIn} className={styles.skillCategory}>
-                  <h4><Terminal size={18} className="gradient-text" /> Tooling & Backend</h4>
-                  <div className={styles.skillsList}>
-                    {["NestJS", "Node.js", "Supabase", "Firebase", "JWT auth flows", "AWS S3", "Vercel", "Git", "Figma", "Axios", "AI-assisted workflow"].map(skill => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillBadge}
-                        drag
-                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                        dragElastic={0.15}
-                        whileHover={{ scale: 1.1, cursor: "grab" }}
-                        whileTap={{ scale: 0.95, cursor: "grabbing" }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                <motion.div variants={fadeIn}>
+                  <TiltCard className={styles.skillCategory}>
+                    <h4><Terminal size={18} className="gradient-text" /> Tooling & Backend</h4>
+                    <div className={styles.skillsList}>
+                      {["NestJS", "Node.js", "Supabase", "Firebase", "JWT auth flows", "AWS S3", "Vercel", "Git", "Figma", "Axios", "AI-assisted workflow"].map(skill => (
+                        <motion.span
+                          key={skill}
+                          className={styles.skillBadge}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </TiltCard>
                 </motion.div>
               </motion.div>
             </div>

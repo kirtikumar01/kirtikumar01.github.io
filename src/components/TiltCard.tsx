@@ -74,7 +74,7 @@ export default function TiltCard({
         transformPerspective: 1000,
         transition: "box-shadow 0.3s ease",
         boxShadow: isHovered
-          ? "0 20px 40px -15px rgba(0, 255, 255, 0.2)"
+          ? "0 20px 40px -15px var(--shadow-glow)"
           : "0 0px 0px 0px rgba(0, 0, 0, 0)",
       }}
       animate={{
