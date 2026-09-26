@@ -184,6 +184,7 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   opacity: 0.9;
 }
+
 /* Hamburger */
 .hamburger {
   display: none;
@@ -246,14 +247,17 @@
 }
 
 .mobileDrawerOverlay {
+  display: none;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(4px);
-  z-index: -1;
+  z-index: 1040;
   width: 100vw;
+  height: 100dvh;
   pointer-events: all;
   cursor: pointer;
+  touch-action: none;
 }
 
 .mobileDrawerContent {
@@ -262,42 +266,48 @@
   right: 0;
   width: 100%;
   height: 100%;
-  background: var(--nav-bg);
+  background: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-left: 1px solid var(--glass-border);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 0.25rem;
-  padding: 3rem 2.5rem;
+  gap: 0.5rem;
+  padding: 4rem 1.5rem;
   pointer-events: all;
   overflow-y: auto;
+  touch-action: pan-y;
+  overscroll-behavior-y: none;
 }
 
 .mobileNavLink {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   font-family: "Outfit", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-secondary);
-  padding: 0.85rem 0;
+  padding: 1rem 1.25rem;
   width: 100%;
-  border-bottom: 1px solid var(--border);
-  transition: color 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: -0.01em;
-}
-
-.mobileNavLink:last-of-type {
-  border-bottom: none;
 }
 
 .mobileNavLink:hover,
 .mobileNavLinkActive {
   color: var(--text-primary);
+  background: var(--surface-hover);
+  transform: translateX(4px);
+}
+
+.mobileNavLinkActive {
+  background: color-mix(in srgb, var(--accent-1) 8%, transparent);
+  box-shadow: inset 3px 0 0 0 var(--accent-1);
 }
 
 .mobileNavLinkActive .mobileNavNumber {
@@ -305,19 +315,20 @@
 }
 
 .mobileNavNumber {
-  font-size: 0.8rem;
-  color: var(--accent-1);
+  font-size: 0.9rem;
+  color: var(--text-muted);
   font-family: "Inter", monospace;
   font-weight: 500;
-  min-width: 26px;
+  min-width: 28px;
+  transition: color 0.3s ease;
 }
 
 .mobileNavSocials {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 2rem;
-  padding-top: 2rem;
+  margin-top: 1.5rem;
+  padding: 1.5rem 1.25rem 0;
   border-top: 1px solid var(--border);
   width: 100%;
 }
@@ -443,6 +454,7 @@
   .heroContent {
     flex: 1;
   }
+
   .heroImageContainer {
     width: 320px;
   }
@@ -540,11 +552,13 @@
   z-index: 50;
   opacity: 0.7;
   transition: opacity 0.4s ease;
-  pointer-events: none; /* never blocks any content click */
+  pointer-events: none;
+  /* never blocks any content click */
 }
 
 .scrollIndicator a {
-  pointer-events: all; /* but the link itself is still clickable */
+  pointer-events: all;
+  /* but the link itself is still clickable */
 }
 
 .scrollIndicator:hover {
@@ -806,6 +820,7 @@
   z-index: 0;
   pointer-events: none;
 }
+
 .timelineCard:hover::before {
   opacity: 1;
 }
@@ -1249,7 +1264,8 @@
     display: flex;
   }
 
-  .mobileDrawer {
+  .mobileDrawer,
+  .mobileDrawerOverlay {
     display: block;
   }
 
@@ -1306,7 +1322,8 @@
   }
 
   /* Timeline mobile */
-  .timeline::before, .timelineProgress {
+  .timeline::before,
+  .timelineProgress {
     left: 20px;
   }
 

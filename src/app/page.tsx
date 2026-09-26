@@ -43,7 +43,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const yImages = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  
+
   const experienceRef = useRef(null);
   const { scrollYProgress: expScrollYProgress } = useScroll({ target: experienceRef, offset: ["start center", "end center"] });
   const bubbleY = useTransform(expScrollYProgress, [0, 1], ["0%", "100%"]);
@@ -96,6 +96,37 @@ export default function Home() {
   // Close mobile menu when navigating
   const handleNavClick = () => setMobileMenuOpen(false);
 
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    const preventScroll = (e: TouchEvent | WheelEvent) => {
+      const target = e.target as HTMLElement | null;
+      // Allow scrolling if the target is inside the mobile drawer content
+      if (target && target.closest(`.${styles.mobileDrawerContent}`)) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.addEventListener("touchmove", preventScroll, { passive: false });
+      document.addEventListener("wheel", preventScroll, { passive: false });
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.removeEventListener("touchmove", preventScroll);
+      document.removeEventListener("wheel", preventScroll);
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.removeEventListener("touchmove", preventScroll);
+      document.removeEventListener("wheel", preventScroll);
+    };
+  }, [mobileMenuOpen]);
+
   // Anti-spam: track last submission timestamp
   const lastSubmitRef = useRef<number>(0);
   const RATE_LIMIT_MS = 60_000; // 1 submission per minute
@@ -103,7 +134,7 @@ export default function Home() {
   // Name field: block digits and special characters on keydown
   const handleNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // Allow: backspace, delete, tab, arrows, home, end, ctrl combos
-    if (["Backspace","Delete","Tab","ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+    if (["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
     if (e.ctrlKey || e.metaKey) return;
     // Block digits
     if (/[0-9]/.test(e.key)) { e.preventDefault(); return; }
@@ -140,7 +171,7 @@ export default function Home() {
         return "Please enter a valid email address.";
       if (trimmed.length > 254) return "Email address is too long.";
       // Block obvious disposable domains
-      const disposable = ["mailinator.com","tempmail.com","throwaway.email","guerrillamail.com","yopmail.com","trashmail.com","sharklasers.com"];
+      const disposable = ["mailinator.com", "tempmail.com", "throwaway.email", "guerrillamail.com", "yopmail.com", "trashmail.com", "sharklasers.com"];
       const domain = trimmed.split("@")[1]?.toLowerCase();
       if (domain && disposable.includes(domain)) return "Disposable email addresses are not allowed.";
     }
@@ -312,6 +343,20 @@ export default function Home() {
           </button>
         </div>
 
+        {/* Mobile Drawer Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className={styles.mobileDrawerOverlay}
+              onClick={handleNavClick}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          )}
+        </AnimatePresence>
+
         {/* Mobile Drawer */}
         <motion.div
           className={styles.mobileDrawer}
@@ -319,7 +364,6 @@ export default function Home() {
           animate={mobileMenuOpen ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
         >
-          {mobileMenuOpen && <div className={styles.mobileDrawerOverlay} onClick={handleNavClick} />}
           <div className={styles.mobileDrawerContent}>
             {["home", "about", "experience", "projects", "contact"].map((item, i) => (
               <motion.a
@@ -469,8 +513,8 @@ export default function Home() {
                   <h4><Layout size={18} className="gradient-text" /> Core Frontend</h4>
                   <div className={styles.skillsList}>
                     {["React.js", "Next.js", "TypeScript", "JavaScript", "Vue.js", "HTML5/CSS3"].map(skill => (
-                      <motion.span 
-                        key={skill} 
+                      <motion.span
+                        key={skill}
                         className={styles.skillBadge}
                         drag
                         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -487,8 +531,8 @@ export default function Home() {
                   <h4><Database size={18} className="gradient-text" /> State & Data</h4>
                   <div className={styles.skillsList}>
                     {["Redux Toolkit", "Zustand", "TanStack Query", "React Hook Form", "Zod"].map(skill => (
-                      <motion.span 
-                        key={skill} 
+                      <motion.span
+                        key={skill}
                         className={styles.skillBadge}
                         drag
                         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -505,8 +549,8 @@ export default function Home() {
                   <h4><Code2 size={18} className="gradient-text" /> Styling & UI</h4>
                   <div className={styles.skillsList}>
                     {["TailwindCSS", "Framer Motion", "GSAP", "MUI", "Shadcn/UI", "Radix UI"].map(skill => (
-                      <motion.span 
-                        key={skill} 
+                      <motion.span
+                        key={skill}
                         className={styles.skillBadge}
                         drag
                         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -523,8 +567,8 @@ export default function Home() {
                   <h4><Sparkles size={18} className="gradient-text" /> Web3</h4>
                   <div className={styles.skillsList}>
                     {["Wagmi", "Viem", "Ethers.js", "MetaMask", "WalletConnect", "Coinbase Wallet"].map(skill => (
-                      <motion.span 
-                        key={skill} 
+                      <motion.span
+                        key={skill}
                         className={styles.skillBadge}
                         drag
                         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -541,8 +585,8 @@ export default function Home() {
                   <h4><Terminal size={18} className="gradient-text" /> Tooling & Backend</h4>
                   <div className={styles.skillsList}>
                     {["NestJS", "Node.js", "Supabase", "Firebase", "JWT auth flows", "AWS S3", "Vercel", "Git", "Figma", "Axios", "AI-assisted workflow"].map(skill => (
-                      <motion.span 
-                        key={skill} 
+                      <motion.span
+                        key={skill}
                         className={styles.skillBadge}
                         drag
                         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -565,7 +609,7 @@ export default function Home() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
             <motion.h2 className={styles.sectionTitle} style={{ y: yBg }}>Where I&apos;ve Worked</motion.h2>
             <p className={styles.sectionSubtitle}>A timeline of my professional journey and the impact I&apos;ve made.</p>
-            
+
             <div className={styles.timeline}>
               {/* The glowing progress line */}
               <motion.div className={styles.timelineProgress} style={{ height: lineHeight }} />

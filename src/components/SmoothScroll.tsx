@@ -40,7 +40,24 @@ export default function SmoothScroll({
 
     requestAnimationFrame(raf);
 
+    // Watch for overflow: hidden on body to stop Lenis globally
+    const observer = new MutationObserver(() => {
+      if (document.body.style.overflow === "hidden") {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+
+    observer.observe(document.body, { attributes: true, attributeFilter: ["style"] });
+
+    // Initial check in case it's already hidden when mounted
+    if (document.body.style.overflow === "hidden") {
+      lenis.stop();
+    }
+
     return () => {
+      observer.disconnect();
       lenis.destroy();
     };
   }, [isReducedMotion]);
